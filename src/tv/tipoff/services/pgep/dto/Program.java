@@ -35,22 +35,22 @@ public class Program{
    	private String url_guide_tv;
    	private String year;
 
- 	public String get_id(){
+ 	public String getId(){
 		return this._id;
 	}
-	public void set_id(String _id){
+	public void setId(String _id){
 		this._id = _id;
 	}
- 	public Links get_links(){
+ 	public Links getLinks(){
 		return this._links;
 	}
-	public void set_links(Links _links){
+	public void setLinks(Links _links){
 		this._links = _links;
 	}
- 	public Providers get_providers(){
+ 	public Providers getProviders(){
 		return this._providers;
 	}
-	public void set_providers(Providers _providers){
+	public void setProviders(Providers _providers){
 		this._providers = _providers;
 	}
  	public List getAwards(){

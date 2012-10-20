@@ -3,9 +3,9 @@ package tv.tipoff.services.pgep.dto;
 
 import java.util.List;
 
-public class Result{
+public class Results<E> {
    	private Number itemsPerPage;
-   	private List results;
+   	private List<E> results;
    	private String self;
    	private Number startIndex;
    	private Number totalResults;
@@ -16,10 +16,10 @@ public class Result{
 	public void setItemsPerPage(Number itemsPerPage){
 		this.itemsPerPage = itemsPerPage;
 	}
- 	public List getResults(){
+ 	public List<E> getResults(){
 		return this.results;
 	}
-	public void setResults(List results){
+	public void setResults(List<E> results){
 		this.results = results;
 	}
  	public String getSelf(){
