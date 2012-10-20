@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tv.tipoff.application.model.User;
-import tv.tipoff.services.infrastructure.DAOUser;
+import tv.tipoff.infrastructure.DAOUser;
 
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 

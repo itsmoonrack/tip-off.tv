@@ -1,4 +1,4 @@
-package tv.tipoff.services.infrastructure;
+package tv.tipoff.infrastructure;
 
 public interface PersistHooks {
 	void beforeSave();
