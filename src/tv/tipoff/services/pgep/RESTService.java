@@ -63,19 +63,42 @@ public class RESTService implements PGEPService {
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<Program> getPrograms() {
-		// TODO Auto-generated method stub
+		URIBuilder builder = new URIBuilder();
+		builder.setScheme(scheme)
+			.setHost(host)
+			.setPath("/programs")
+			.setParameter("format", "json");
+		
+		try {
+			URI uri = builder.build();
+			HttpGet request = new HttpGet(uri);
+			HttpResponse response = client.execute(request);
+			HttpEntity entity = response.getEntity();
+			
+			if (entity != null) {
+				InputStream stream = entity.getContent();
+				InputStreamReader reader = new InputStreamReader(stream);
+				Type type = new TypeToken<Results<Program>>() {}.getType();
+				Results<Program> results = gson.fromJson(reader, type);
+				return results.getResults();
+				
+			}
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
