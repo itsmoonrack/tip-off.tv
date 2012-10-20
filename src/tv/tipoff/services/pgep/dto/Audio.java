@@ -1,29 +1,33 @@
-
 package tv.tipoff.services.pgep.dto;
 
 import java.util.List;
 
-public class Audio{
-   	private List dolby;
-   	private boolean multilingual;
-   	private String sound;
+public class Audio {
+	private List dolby;
+	private boolean multilingual;
+	private String sound;
 
- 	public List getDolby(){
+	public List getDolby() {
 		return this.dolby;
 	}
-	public void setDolby(List dolby){
+
+	public void setDolby(List dolby) {
 		this.dolby = dolby;
 	}
- 	public boolean getMultilingual(){
+
+	public boolean getMultilingual() {
 		return this.multilingual;
 	}
-	public void setMultilingual(boolean multilingual){
+
+	public void setMultilingual(boolean multilingual) {
 		this.multilingual = multilingual;
 	}
- 	public String getSound(){
+
+	public String getSound() {
 		return this.sound;
 	}
-	public void setSound(String sound){
+
+	public void setSound(String sound) {
 		this.sound = sound;
 	}
 }

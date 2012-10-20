@@ -1,15 +1,22 @@
-
 package tv.tipoff.services.pgep.dto;
 
-import java.util.List;
+public class Providers {
+	private Plurimedia plurimedia;
+	private Pluzz pluzz;
 
-public class Providers{
-   	private Plurimedia plurimedia;
-
- 	public Plurimedia getPlurimedia(){
+	public Plurimedia getPlurimedia() {
 		return this.plurimedia;
 	}
-	public void setPlurimedia(Plurimedia plurimedia){
+
+	public void setPlurimedia(Plurimedia plurimedia) {
 		this.plurimedia = plurimedia;
+	}
+
+	public Pluzz getPluzz() {
+		return this.pluzz;
+	}
+
+	public void setPluzz(Pluzz pluzz) {
+		this.pluzz = pluzz;
 	}
 }
