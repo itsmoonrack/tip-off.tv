@@ -3,16 +3,54 @@ package tv.tipoff.application.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Program {
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+import tv.tipoff.infrastructure.PersistHooks;
+
+
+import com.google.appengine.api.datastore.Key;
+
+@PersistenceCapable
+public class Program implements PersistHooks {
 	
-	private String title;
-	private Show show;
-	private List<User> hasBeenSeenBy;
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+	@Persistent private int id;
+	@Persistent private String title;
+	@Persistent private Show show;
+	@Persistent private List<User> hasBeenSeenBy;
 	
 	public Program(){
 		hasBeenSeenBy = new ArrayList<User>();
 	}
 	
+	public Program(int id, String title, Show show) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.show = show;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public Key getKey() {
+		return key;
+	}
+
+	public void setKey(Key key) {
+		this.key = key;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -34,6 +72,9 @@ public class Program {
 	public void addHasBeenSeenBy(User user) {
 		this.hasBeenSeenBy.add(user);
 	}
+
+	@Override
+	public void beforeSave() { }
 	
 	
 	

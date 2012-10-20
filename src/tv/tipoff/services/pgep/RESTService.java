@@ -1,10 +1,8 @@
 package tv.tipoff.services.pgep;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -18,7 +16,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import sun.misc.IOUtils;
 import tv.tipoff.services.pgep.dto.Broadcast;
 import tv.tipoff.services.pgep.dto.Channel;
 import tv.tipoff.services.pgep.dto.Program;

@@ -4,16 +4,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+import tv.tipoff.infrastructure.PersistHooks;
+
+
+import com.google.appengine.api.datastore.Key;
 
 
 @PersistenceCapable
-public class Show {
-
-	private String title;
-	private Date start;
-	private Date end;
-	private int affinity;
+public class Show  implements PersistHooks {
+	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private Key key;
+	@Persistent private String title;
+	@Persistent private Date start;
+	@Persistent private Date end;
+	@Persistent private int affinity;
 	
 	private List<Program> hasSeen;
 	
@@ -55,6 +66,8 @@ public class Show {
 	public void addHasSeen(Program program){
 		hasSeen.add(program);
 	}
+	@Override
+	public void beforeSave() { }
 	
 	
 	
