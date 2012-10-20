@@ -2,6 +2,7 @@
 	"diffusion":[{
 		"channel": "tf1",
 		"show": {
+			"id": "506ee192bb94787077006429",
 			"title": "UEFA",
 			"start": "20/10/2012 20:50",
 			"end": "20/10/2012 23:00",
@@ -12,6 +13,7 @@
 		{
 		"channel": "france2",
 		"show": {
+			"id": "4f7f109cbb94787338000001",
 			"title": "L'effet papillon",
 			"start": "20/10/2012 20:30",
 			"end": "20/10/2012 22:30",
@@ -22,6 +24,7 @@
 		{
 		"channel": "france3",
 		"show": {
+			"id": "4f7f123ebb9478733800b4b5",
 			"title": "L'effet papillon",
 			"start": "20/10/2012 20:30",
 			"end": "20/10/2012 22:30",
@@ -32,6 +35,7 @@
 		{
 		"channel": "canalplus",
 		"show": {
+			"id": "506ee192bb9478707700642b",
 			"title": "Le Zapping",
 			"start": "20/10/2012 20:30",
 			"end": "20/10/2012 22:30",
@@ -42,6 +46,7 @@
 		{
 		"channel": "arte",
 		"show": {
+			"id": "506ee192bb94787077006429",
 			"title": "Des racines et des ailes",
 			"start": "20/10/2012 20:30",
 			"end": "20/10/2012 22:30",
@@ -52,6 +57,7 @@
 		{
 		"channel": "m6",
 		"show": {
+			"id": "506ee192bb94787077006429",
 			"title": "Turbo",
 			"start": "20/10/2012 20:30",
 			"end": "20/10/2012 22:30",
@@ -62,6 +68,7 @@
 		{
 		"channel": "france5",
 		"show": {
+			"id": "506ee192bb94787077006429",
 			"title": "L'effet papillon",
 			"start": "20/10/2012 20:30",
 			"end": "20/10/2012 22:30",
@@ -72,6 +79,7 @@
 		{
 		"channel": "direct8",
 		"show": {
+			"id": "506ee192bb94787077006429",
 			"title": "L'effet papillon",
 			"start": "20/10/2012 20:30",
 			"end": "20/10/2012 22:30",
@@ -82,6 +90,7 @@
 		{
 		"channel": "w9",
 		"show": {
+			"id": "506ee192bb94787077006429",
 			"title": "Vieille Morue",
 			"start": "20/10/2012 20:30",
 			"end": "20/10/2012 22:30",

@@ -1,8 +1,10 @@
 package tv.tipoff.services.pgep;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -12,6 +14,7 @@ import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
@@ -56,6 +59,25 @@ public class RESTService implements PGEPService {
 			return results.getResults().get(0);
 
 		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public String getProgramJSON(String id) {
+		URIBuilder builder = newURIBuilder().setPath("/programs/" + id);
+		
+		try {
+			InputStream stream = request(builder.build());
+			InputStreamReader reader = new InputStreamReader(stream);
+			BufferedReader buffer = new BufferedReader(reader);
+			String line="";
+			StringWriter writer = new StringWriter();
+			while ((line=buffer.readLine()) != null){
+				writer.write(line); 
+			}
+			return writer.toString();
+				
+		} catch (URISyntaxException | IOException e) {
 			throw new RuntimeException(e);
 		}
 	}

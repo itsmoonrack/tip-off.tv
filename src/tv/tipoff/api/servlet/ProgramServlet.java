@@ -33,12 +33,19 @@ public class ProgramServlet extends HttpServlet {
 	
 	public static final String ACTION_ALL = "/all";
 	public static final String ACTION_NOW = "/now";
+	public static final String ACTION_PROGRAM = "/program";
+	
+
+	private String host;
+	private String scheme;
 	
 	private static RESTService pluzzService ;
 	
 	@Override
 	public void init() throws ServletException {
 		pluzzService = new RESTService();
+		host = "pgep.francetv.fr";
+		scheme = "http";
 	}
 	
 	Gson gson = new Gson();
@@ -56,9 +63,24 @@ public class ProgramServlet extends HttpServlet {
 		case ACTION_NOW:
 			getNow(req, resp);
 			break;
+		case ACTION_PROGRAM:
+			forwardProgram(req,resp);
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void forwardProgram(HttpServletRequest req, HttpServletResponse resp) {
+		resp.setCharacterEncoding("utf-8");
+		resp.setContentType("text/json");
+		String id =  req.getParameter(PARAM_ID);
+		try {
+			resp.getWriter().print(pluzzService.getProgramJSON(id));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void getNow(HttpServletRequest req, HttpServletResponse resp) {
@@ -89,7 +111,6 @@ public class ProgramServlet extends HttpServlet {
 	private Program serviceToModel(tv.tipoff.services.pgep.dto.Program program) {
 		Broadcast broadcast = pluzzService.getBroadcast(program.getId());
 		Program programModel = new Program();
-		int id = 0;
 		Date start = null;
 		Date end = null;
 		try{
