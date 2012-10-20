@@ -2,7 +2,9 @@ package tv.tipoff.application.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
@@ -33,7 +35,7 @@ public class User implements PersistHooks {
 	@Persistent private Date updated;
 	@Persistent private boolean deleted;
 
-	@Persistent private List<String> hasSeen; // list of programs seen by the user 
+	@Persistent private Set<String> hasSeen; // list of programs seen by the user 
 	private DAOProgram daoProgram = new DAOProgram();
 		
 	public void beforeSave() {
@@ -45,16 +47,17 @@ public class User implements PersistHooks {
 
 	public User(String pseudo) {
 		super();
-		friendsList = new ArrayList<String>();
-		hasSeen = new ArrayList<String>();
+		this.friendsList = new ArrayList<String>();
+		this.hasSeen = new HashSet<String>();
 		this.pseudo = pseudo;
 		this.deleted = false;
 	}
 
 	// pseudo,birthdate,email,sex,job,city,desc)
-	public User(String pseudo,String email ) {
+	public User(String pseudo, String email) {
 		super();
-		friendsList = new ArrayList<String>();
+		this.friendsList = new ArrayList<String>();
+		this.hasSeen = new HashSet<String>();
 		this.pseudo = pseudo;
 		this.email = email;
 
@@ -101,8 +104,16 @@ public class User implements PersistHooks {
 		return deleted;
 	}
 	
-	public void addHasSeen(Program program){
-		this.hasSeen.add(program.getId());
+	/**
+	 * Ajoute une émission à la liste des "Vues" pour l'utilisateur.
+	 * 
+	 * @param programId
+	 *   Une ID d'emission valide.
+	 * @return
+	 *   true si l'ID n'était pas déjà existante.
+	 */
+	public boolean addHasSeen(String programId) {
+		return this.hasSeen.add(programId);
 	}
 	
 	
