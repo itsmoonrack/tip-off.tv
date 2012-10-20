@@ -99,35 +99,16 @@
 					</div><!--/.well -->
 				</div><!--/span-->
 				<div class="span9">
-					<div class="hero-unit">
-						<h3>Que regardes-tu vieille morue ?</h3>
+					<div id="titre" class="hero-unit">
 					</div>
 					<div class="row-fluid">
-						<div class="span4" id="channel_tf1">
+						<div id="photo" class="span8">
 						</div><!--/span-->
-						<div class="span4" id="channel_france2">
-						</div><!--/span-->
-						<div class="span4" id="channel_france3">
-						</div><!--/span-->
-					</div><!--/row-->
-					<br /><br />
-					<div class="row-fluid">
-						<div class="span4" id="channel_canalplus">
-						</div><!--/span-->
-						<div class="span4" id="channel_france5">
-						</div><!--/span-->
-						<div class="span4" id="channel_m6">
+						<div id="resume" class="span4" style="text-align: left;">
+							<font>Résumé :</font><br />
 						</div><!--/span-->
 					</div><!--/row-->
 					<br /><br />
-					<div class="row-fluid">
-						<div class="span4" id="channel_arte">
-						</div><!--/span-->
-						<div class="span4" id="channel_direct8">
-						</div><!--/span-->
-						<div class="span4" id="channel_w9">
-						</div><!--/span-->
-					</div><!--/row-->
 				</div><!--/span-->
 			</div><!--/row-->
 
@@ -135,34 +116,18 @@
 		</div><!--/.fluid-container-->
 		
 		<script>
-			$.getJSON('ajax/test.json', function(data) {
-				var items = [];
-
-				$.each(data.diffusion, function(key, val) {
-					var colorR;
-					var colorB;
-					var colorG;
-					if(val.show.affinity<0.5){
-						colorR=255;
-						colorG=Math.round(510*val.show.affinity);
-						colorB=0;
-					}else{
-						colorR=Math.round(255-(val.show.affinity-0.5)*510);
-						colorB=0;
-						colorG=255;
+			$.getJSON('ajax/506ee192bb9478707700642b.json', function(data) {
+				$('#titre').append("<h3>" + data.results[0].name + "</h3>");
+				
+				var i = 0;
+				$.each(data.results[0].photo, function(key, val) {
+					if(i==0) {
+						$('#photo').append("<img src=\"" + val + "\" >");
+						i=i+1;
 					}
-					
-					$('#channel_' + val.channel).append(
-						"<div style=\"width: 15px; position: absolute; margin-left:8px; margin-top:8px; \">" +
-						"<div style=\"background-color: rgb(240,240,240); width: 15px; height: " + ((1 - val.show.affinity)*120) + "px;\"></div>" +
-						"<div style=\"background-color: rgb("+ colorR +","+ colorG +","+ colorB +"); width: 15px; height: " + (val.show.affinity*120) + "px;\"></div>" +
-						"<font size=\"1px\">" + Math.round(val.show.affinity * 100) + "%</font></div>" +
-						"<img class=\"logo_shows\" src=\"" + val.show.photo + "\" />" +
-						"<img class=\"logo_channel\" src=\"img/channel/channel_" + val.channel + ".png\" /><br /><br />" +
-						val.show.title + "<br />" +
-						"<font size=\"1px\">" + val.show.start + " - " + val.show.end + "</font>"
-					);
-				});
+				})
+				
+				$('#resume').append(data.results[0].descriptions.length_150);
 			});
 		</script>
 
