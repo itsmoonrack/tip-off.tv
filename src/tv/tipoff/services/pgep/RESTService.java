@@ -104,13 +104,65 @@ public class RESTService implements PGEPService {
 
 	@Override
 	public Channel getChannel(String id) {
-		// TODO Auto-generated method stub
+		URIBuilder builder = new URIBuilder();
+		builder.setScheme(scheme)
+			.setHost(host)
+			.setPath("/channels/" + id)
+			.setParameter("format", "json");
+		
+		try {
+			URI uri = builder.build();
+			HttpGet request = new HttpGet(uri);
+			HttpResponse response = client.execute(request);
+			HttpEntity entity = response.getEntity();
+			
+			if (entity != null) {
+				InputStream stream = entity.getContent();
+				InputStreamReader reader = new InputStreamReader(stream);
+				Type type = new TypeToken<Results<Channel>>() {}.getType();
+				Results<Channel> results = gson.fromJson(reader, type);
+				return results.getResults().get(0);
+				
+			}
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
 	public List<Channel> getChannels() {
-		// TODO Auto-generated method stub
+		URIBuilder builder = new URIBuilder();
+		builder.setScheme(scheme)
+			.setHost(host)
+			.setPath("/channels")
+			.setParameter("format", "json");
+		
+		try {
+			URI uri = builder.build();
+			HttpGet request = new HttpGet(uri);
+			HttpResponse response = client.execute(request);
+			HttpEntity entity = response.getEntity();
+			
+			if (entity != null) {
+				InputStream stream = entity.getContent();
+				InputStreamReader reader = new InputStreamReader(stream);
+				Type type = new TypeToken<Results<Channel>>() {}.getType();
+				Results<Channel> results = gson.fromJson(reader, type);
+				return results.getResults();
+				
+			}
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

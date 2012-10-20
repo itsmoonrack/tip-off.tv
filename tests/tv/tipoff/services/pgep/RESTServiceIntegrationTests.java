@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import tv.tipoff.services.pgep.dto.Channel;
 import tv.tipoff.services.pgep.dto.Program;
 
 public class RESTServiceIntegrationTests {
@@ -23,6 +24,7 @@ public class RESTServiceIntegrationTests {
 	public void testGetProgramId() {
 		Program program = service.getProgram("4f7f112fbb94787338004d62");
 		assertEquals("Found program by ID.", "4f7f112fbb94787338004d62", program.getId());
+		assertEquals("Ratz", program.getName());
 	}
 	
 	@Test
@@ -35,5 +37,22 @@ public class RESTServiceIntegrationTests {
 		}
 		Assert.assertFalse(programs.size() + " programs was found.", programs.size() == 0);
 	}
+	
+	@Test
+	public void testGetChannels() {
+		List<Channel> channels = service.getChannels();
+		for (Channel channel : channels) {
+			if (channel == null) {
+				Assert.fail("A channel was null.");
+			}
+		}
+		Assert.assertFalse(channels.size() + " channels was found.", channels.size() == 0);
+	}
 
+	@Test
+	public void testGetChannelId() {
+		Channel channel = service.getChannel("4f7f115abb947873380064a1");
+		assertEquals("Found program by ID.", "4f7f115abb947873380064a1", channel.getId());
+		assertEquals("M6", channel.getName());
+	}
 }

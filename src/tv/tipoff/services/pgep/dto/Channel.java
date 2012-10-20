@@ -15,7 +15,7 @@ public class Channel{
    	private List packages;
    	private String updated_at;
 
- 	public String get_id(){
+ 	public String getId(){
 		return this._id;
 	}
 	public void set_id(String _id){
