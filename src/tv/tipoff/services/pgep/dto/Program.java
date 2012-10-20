@@ -2,6 +2,8 @@ package tv.tipoff.services.pgep.dto;
 
 import java.util.List;
 
+import com.google.gson.internal.StringMap;
+
 public class Program{
    	private String _id;
    	private Links _links;
@@ -24,7 +26,7 @@ public class Program{
    	private String original_subtitle;
    	private String original_title;
    	private Part_of part_of;
-   	private Photo photo;
+   	private StringMap<String> photo;
    	private boolean pilot;
    	private String quality_rating;
    	private boolean silent;
@@ -161,10 +163,10 @@ public class Program{
 	public void setPart_of(Part_of part_of){
 		this.part_of = part_of;
 	}
- 	public Photo getPhoto(){
+ 	public StringMap<String> getPhoto(){
 		return this.photo;
 	}
-	public void setPhoto(Photo photo){
+	public void setPhoto(StringMap<String> photo){
 		this.photo = photo;
 	}
  	public boolean isPilot(){

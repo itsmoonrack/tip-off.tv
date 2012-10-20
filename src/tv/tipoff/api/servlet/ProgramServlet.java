@@ -17,6 +17,7 @@ import tv.tipoff.services.pgep.RESTService;
 import com.google.gson.Gson;
 
 public class ProgramServlet extends HttpServlet {
+	private static final String PHOTO_SIZE = "175x99";
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 	private static final long serialVersionUID = 1L;
 	
@@ -83,10 +84,10 @@ public class ProgramServlet extends HttpServlet {
 		} catch(Exception e){}
 		programModel.setId(id);
 		programModel.setTitle(program.getName());
-		programModel.setImageURL(program.getPhoto().get("175x99"));
-		programModel.setShowTitle(program.);
-		programModel.setShowStart(program.);
-		programModel.setShowEnd();
+		programModel.setImageURL(program.getPhoto().get(PHOTO_SIZE));
+		programModel.setShowTitle(program.getName());
+		programModel.setShowStart(new Date());
+		programModel.setShowEnd(new Date());
 		programModel.setShowAffinity(0);
 		
 		return programModel;
