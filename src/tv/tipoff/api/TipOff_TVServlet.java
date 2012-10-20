@@ -11,9 +11,7 @@ public class TipOff_TVServlet extends HttpServlet {
 		
 		resp.setContentType("text/plain");
 		resp.getWriter().println("tip-off.tv");
-		// Test
-		
-		
+		// Test Kevin.
 	}
 	
 }
