@@ -3,14 +3,14 @@ package tv.tipoff.api.servlet;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import tv.tipoff.application.model.User;
+import tv.tipoff.services.infrastructure.DAOUser;
 
 import com.google.appengine.labs.repackaged.org.json.JSONException;
 

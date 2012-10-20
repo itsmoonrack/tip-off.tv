@@ -1,4 +1,4 @@
-package tv.tipoff.api.servlet;
+package tv.tipoff.services.infrastructure;
 
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
@@ -17,6 +17,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+
+import tv.tipoff.application.model.User;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;

@@ -1,4 +1,4 @@
-package tv.tipoff.api.servlet;
+package tv.tipoff.services.infrastructure;
 
 import javax.jdo.listener.InstanceLifecycleEvent;
 import javax.jdo.listener.StoreLifecycleListener;
