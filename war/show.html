@@ -128,6 +128,9 @@
 			    return results[1] || 0;
 			}
 			
+			// Fait son check-in.
+			$.post("/checkin", {pseudo: "dude", program_id: $.urlParam('id')});
+			
 			$.getJSON('/program/program?id=' + $.urlParam('id'), function(data) {
 			
 			$('#titre').append("<h3 style=\"margin-left: 55px;\">" + data.results[0].name + "</h3>");

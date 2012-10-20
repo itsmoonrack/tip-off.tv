@@ -14,12 +14,10 @@ import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EncodingUtils;
 
 import tv.tipoff.services.pgep.dto.Broadcast;
 import tv.tipoff.services.pgep.dto.Channel;

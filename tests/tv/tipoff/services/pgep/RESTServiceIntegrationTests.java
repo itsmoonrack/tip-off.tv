@@ -73,7 +73,7 @@ public class RESTServiceIntegrationTests {
 	
 	@Test
 	public void testGetBroadcastsByDate() {
-		service.setLimit(40);
+		service.setLimit(200);
 		List<Broadcast> broadcasts = service.getBroadcasts(new Date());
 		for (Broadcast broadcast : broadcasts) {
 			if (broadcast == null) {
