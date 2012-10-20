@@ -93,13 +93,12 @@ public class ProgramServlet extends HttpServlet {
 		Date start = null;
 		Date end = null;
 		try{
-			id = Integer.parseInt(program.getId());
 			if (broadcast != null){
 				start = DATE_FORMAT.parse( broadcast.getStartsAt());
 				end = DATE_FORMAT.parse( broadcast.getEndsAt());
 			}
 		} catch(Exception e){}
-		programModel.setId(id);
+		programModel.setId( program.getId());
 		programModel.setTitle(program.getName());
 		programModel.setImageURL(program.getPhoto().get(PHOTO_SIZE));
 		programModel.setShowTitle(program.getName());
@@ -149,7 +148,7 @@ public class ProgramServlet extends HttpServlet {
 	}
 
 	private Program getProgramFromParams(HttpServletRequest req) {
-		int id = 0;
+		String id = req.getParameter(PARAM_ID);
 		String title = req.getParameter(PARAM_TITLE);
 		String imageUrl = req.getParameter(PARAM_IMG_URL);
 		String showTitle = req.getParameter(PARAM_SHOW_TITLE);
@@ -163,9 +162,7 @@ public class ProgramServlet extends HttpServlet {
 		}
 		int showAffinity = 0;
 		try{
-			String rawid = req.getParameter(PARAM_ID);
 			String rawaffinity = req.getParameter(PARAM_SHOW_AFFINTY);
-			id = Integer.parseInt(rawid);
 			showAffinity = Integer.parseInt(rawaffinity);
 		} catch( Exception e){ }
 		return new Program(id,title,imageUrl, showTitle,showStart,showEnd, showAffinity);

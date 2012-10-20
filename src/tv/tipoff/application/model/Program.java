@@ -20,7 +20,7 @@ public class Program implements PersistHooks {
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
-	@Persistent private int id;
+	@Persistent private String id;
 	@Persistent private String title;
 	@Persistent private String imageURL;
 	
@@ -35,7 +35,7 @@ public class Program implements PersistHooks {
 		hasBeenSeenBy = new ArrayList<User>();
 	}
 	
-	public Program(int id, String title, String imageURL, 
+	public Program(String id, String title, String imageURL, 
 			String showTitle, Date showStart, Date showEnd, int showAffinity) {
 		super();
 		this.id = id;
@@ -48,7 +48,7 @@ public class Program implements PersistHooks {
 		this.showAffinity = showAffinity;
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
@@ -60,7 +60,7 @@ public class Program implements PersistHooks {
 		this.key = key;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	
