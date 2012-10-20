@@ -74,6 +74,35 @@ public class RESTService implements PGEPService {
 
 	@Override
 	public List<Program> getPrograms() {
+		URIBuilder builder = new URIBuilder();
+		builder.setScheme(scheme)
+			.setHost(host)
+			.setPath("/programs")
+			.setParameter("format", "json");
+		
+		try {
+			URI uri = builder.build();
+			HttpGet request = new HttpGet(uri);
+			HttpResponse response = client.execute(request);
+			HttpEntity entity = response.getEntity();
+			
+			if (entity != null) {
+				InputStream stream = entity.getContent();
+				InputStreamReader reader = new InputStreamReader(stream);
+				Type type = new TypeToken<Results<Program>>() {}.getType();
+				Results<Program> results = gson.fromJson(reader, type);
+				return results.getResults();
+				
+			}
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+		/**
 		try {
 			URL url = new URL("http://pgep.francetv.fr/programs?format=json");
 			InputStreamReader reader = new InputStreamReader(url.openStream());
@@ -86,7 +115,7 @@ public class RESTService implements PGEPService {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return null;**/
 	}
 
 	@Override
