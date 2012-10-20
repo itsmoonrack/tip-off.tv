@@ -1,13 +1,13 @@
 package tv.tipoff.services.pgep;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.lang.reflect.Type;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -60,6 +60,43 @@ public class RESTService implements PGEPService {
 				Type type = new TypeToken<Results<Program>>() {}.getType();
 				Results<Program> results = gson.fromJson(reader, type);
 				return results.getResults().get(0);
+				
+			}
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public String getProgramJSON(String id) {
+		URIBuilder builder = new URIBuilder();
+		builder.setScheme(scheme)
+			.setHost(host)
+			.setPath("/programs/" + id)
+			.setParameter("format", "json");
+		
+		try {
+			URI uri = builder.build();
+			HttpGet request = new HttpGet(uri);
+			HttpResponse response = client.execute(request);
+			HttpEntity entity = response.getEntity();
+			
+			if (entity != null) {
+				InputStream stream = entity.getContent();
+				InputStreamReader reader = new InputStreamReader(stream);
+				
+				BufferedReader buffer=new BufferedReader(reader);
+				String line="";
+				StringWriter writer=new StringWriter();
+				while ( null!=(line=buffer.readLine())){
+					writer.write(line); 
+				}
+
+				return writer.toString();
 				
 			}
 		} catch (URISyntaxException e) {
