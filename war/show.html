@@ -133,8 +133,10 @@
 			$('#titre').append("<h3 style=\"margin-left: 55px;\">" + data.results[0].name + "</h3>");
 			
 			var i = 0;
+			$('#photo').append("<img src='http://i.imgur.com/xDtLE.png' >");
 			$.each(data.results[0].photo, function(key, val) {
-				if(i==0) {
+				if(i==0 && val!="") {
+					$('#photo').empty;
 					$('#photo').append("<img src=\"" + val + "\" >");
 					i=i+1;
 				}
