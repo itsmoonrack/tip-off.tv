@@ -21,6 +21,7 @@ public class Program implements PersistHooks {
 	private Key key;
 	@Persistent private int id;
 	@Persistent private String title;
+	@Persistent private String imageURL;
 	@Persistent private Show show;
 	@Persistent private List<User> hasBeenSeenBy;
 	
@@ -28,10 +29,11 @@ public class Program implements PersistHooks {
 		hasBeenSeenBy = new ArrayList<User>();
 	}
 	
-	public Program(int id, String title, Show show) {
+	public Program(int id, String title, String imageURL, Show show) {
 		super();
 		this.id = id;
 		this.title = title;
+		this.imageURL = imageURL;
 		this.show = show;
 	}
 	
@@ -49,6 +51,14 @@ public class Program implements PersistHooks {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
 	}
 
 	public String getTitle() {

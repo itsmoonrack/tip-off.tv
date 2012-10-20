@@ -20,6 +20,7 @@ public class ProgramServlet extends HttpServlet {
 	
 	public static final String PARAM_ID = "id";
 	public static final String PARAM_TITLE = "title";
+	public static final String PARAM_IMG_URL = "img_url";
 	public static final String PARAM_SHOW_TITLE = "show_title";
 	public static final String PARAM_SHOW_START = "show_start";
 	public static final String PARAM_SHOW_END = "show_end";
@@ -55,6 +56,7 @@ public class ProgramServlet extends HttpServlet {
 	private Program getProgramFromParams(HttpServletRequest req) {
 		int id = 0;
 		String title = req.getParameter(PARAM_TITLE);
+		String imageUrl = req.getParameter(PARAM_IMG_URL);
 		String showTitle = req.getParameter(PARAM_SHOW_TITLE);
 		Date showStart = null;
 		Date showEnd = null;
@@ -72,7 +74,7 @@ public class ProgramServlet extends HttpServlet {
 			showAffinity = Integer.parseInt(rawaffinity);
 		} catch( Exception e){ }
 		Show show = new Show(showTitle,showStart,showEnd, showAffinity);
-		return new Program(id,title,show);
+		return new Program(id,title,imageUrl, show);
 	}
 	
 
