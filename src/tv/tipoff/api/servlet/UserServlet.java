@@ -41,8 +41,7 @@ public class UserServlet extends HttpServlet {
 			if (userCreationOK) {
 				resp.setStatus(HttpServletResponse.SC_OK);
 				resp.getWriter().println("Enregistrement réussi !");
-				resp.getWriter()
-						.print("Un email à été envoyé à " + user.getEmail());
+				resp.getWriter().print("Un email à été envoyé à " + user.getEmail());
 			} else {
 				resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "An Error occured");
 			}
