@@ -1,4 +1,4 @@
-package tv.tipoff.services.infrastructure;
+package tv.tipoff.infrastructure;
 
 import javax.jdo.PersistenceManager;
 
@@ -14,6 +14,14 @@ public class DAOProgram {
 	public void createProgram(Program program) {
 		Key key = KeyFactory.createKey(Program.class.getSimpleName(), program.getId());
 		program.setKey(key);
+
+		pm = PMF.getPersistenceManager();
+		try {
+			pm.makePersistent(program);
+		} finally {
+			pm.close();
+		}
 	}
+		
 
 }

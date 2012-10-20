@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import tv.tipoff.application.model.Program;
 import tv.tipoff.application.model.Show;
-import tv.tipoff.services.infrastructure.DAOProgram;
+import tv.tipoff.infrastructure.DAOProgram;
 
 public class ProgramServlet extends HttpServlet {
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -29,11 +29,19 @@ public class ProgramServlet extends HttpServlet {
 	private static DAOProgram daoProgram = new DAOProgram();
 	
 	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		super.doGet(req, resp);
+		
+		resp.getWriter().print("program");
+	}
+	
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		super.doPost(req, resp);
 		Program program = getProgramFromParams(req);
 		final boolean programCreationOK = true;
+		daoProgram.createProgram(program);
 
 		if (programCreationOK) {
 			resp.setStatus(HttpServletResponse.SC_OK);
@@ -58,8 +66,10 @@ public class ProgramServlet extends HttpServlet {
 		}
 		int showAffinity = 0;
 		try{
-			id = Integer.getInteger(req.getParameter(PARAM_ID));
-			showAffinity = Integer.getInteger(req.getParameter(PARAM_SHOW_AFFINTY));
+			String rawid = req.getParameter(PARAM_ID);
+			String rawaffinity = req.getParameter(PARAM_SHOW_AFFINTY);
+			id = Integer.parseInt(rawid);
+			showAffinity = Integer.parseInt(rawaffinity);
 		} catch( Exception e){ }
 		Show show = new Show(showTitle,showStart,showEnd, showAffinity);
 		return new Program(id,title,show);
