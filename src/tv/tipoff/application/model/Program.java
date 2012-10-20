@@ -10,6 +10,8 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import tv.tipoff.api.servlet.ProgramServlet;
+import tv.tipoff.infrastructure.DAOProgram;
+import tv.tipoff.infrastructure.DAOUser;
 import tv.tipoff.infrastructure.PersistHooks;
 
 import com.google.appengine.api.datastore.Key;
@@ -28,11 +30,16 @@ public class Program implements PersistHooks {
 	@Persistent private Date showStart;
 	@Persistent private Date showEnd;
 	@Persistent private int showAffinity;
+
+	private DAOProgram daoProgram = new DAOProgram();
+	private DAOUser daoUser = new DAOUser();
 	
-	@Persistent private List<User> hasBeenSeenBy;
+	@Persistent private List<String> hasBeenSeenBy;
+	
+	@Persistent private List<Tuple<String,Integer>> similarTo; // tuple<id program, affinity>
 	
 	public Program(){
-		hasBeenSeenBy = new ArrayList<User>();
+		hasBeenSeenBy = new ArrayList<String>();
 	}
 	
 	public Program(String id, String title, String imageURL, 
@@ -112,19 +119,38 @@ public class Program implements PersistHooks {
 	}
 
 	public List<User> getHasBeenSeenBy() {
-		return hasBeenSeenBy;
+		List<User> users = new ArrayList<User>();
+		for (String  user : hasBeenSeenBy){
+			User us = daoUser.getUserProfile(user);
+			users.add(us);
+		}
+		return users;
 	}
-	public void setHasBeenSeenBy(List<User> hasBeenSeenBy) {
+	
+	public void setHasBeenSeenBy(List<String> hasBeenSeenBy) {
 		this.hasBeenSeenBy = hasBeenSeenBy;
 	}
 	public void addHasBeenSeenBy(User user) {
-		this.hasBeenSeenBy.add(user);
+		this.hasBeenSeenBy.add(user.getPseudo());
 	}
 
 	@Override
 	public void beforeSave() { }
 	
+	public void addSimilarProgram(Tuple<Program, Integer> prog){
+		Tuple<String, Integer> p = new Tuple<String, Integer>(prog.x.getId(), prog.y);
+		this.similarTo.add(p);
+	}
 	
+	public List<Tuple<Program, Integer>> getSimilarTo() {
+		List<Tuple<Program, Integer>> similars = new ArrayList<Tuple<Program, Integer>>();
+		for (Tuple<String,Integer> sim : similarTo){
+			Tuple<Program,Integer> s = new Tuple<Program,Integer>(daoProgram.getProgram(sim.x),sim.y);
+			similars.add(s);
+		}
+		return similars;
+	}
+
 	public String toJSON(){
 		StringBuffer builder = new StringBuffer();
 		builder.append("{");

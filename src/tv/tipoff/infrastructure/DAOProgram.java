@@ -39,4 +39,20 @@ public class DAOProgram {
 		}
 		return programs;
 	}
+
+	/**..
+	 * Get program by id
+	 * @param String id 
+	 * @return program
+	 */
+	public Program getProgram(String id) {
+		Key key = KeyFactory.createKey(Program.class.getSimpleName(), id);
+		try {
+			return pm.getObjectById(Program.class, key);
+		} catch (Exception e) {
+			return null;
+		} finally {
+			pm.close();
+		}
+	}
 }
