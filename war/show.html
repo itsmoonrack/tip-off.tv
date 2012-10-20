@@ -101,6 +101,9 @@
 				</div><!--/span-->
 				<div class="span9">
 					<div id="titre" class="hero-unit">
+						<a href='index.html'>
+							<img src="img/back.gif" style="position: absolute; margin-top: 5px;" />
+						</a>
 					</div>
 					<div id="twitter"></div>
 					<div class="row-fluid">
@@ -118,15 +121,9 @@
 		</div><!--/.fluid-container-->
 		
 		<script>
-		$.getJSON('http://pgep.francetv.fr/programs/506ee192bb9478707700642b?format=json', function(data) {
+		$.getJSON('ajax/506ee192bb9478707700642b.json', function(data) {
 			
-			$('#titre').append("<h3>" + data.results[0].name + "</h3>");
-			
-			$.getJSON("http://api.mesagraph.com/socialtv/programs/search?app_key=be699eefad199eb6f78d2f68861e0061&app_id=780923a3&term=simpsons" 
-					      //+ data.results[0].name
-					      , function(res){
-					     $('#twitter').append(res[0].id);
-					    });
+			$('#titre').append("<h3 style=\"margin-left: 55px;\">" + data.results[0].name + "</h3>");
 			
 			var i = 0;
 			$.each(data.results[0].photo, function(key, val) {
