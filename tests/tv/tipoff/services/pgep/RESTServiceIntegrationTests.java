@@ -26,6 +26,7 @@ public class RESTServiceIntegrationTests {
 		Program program = service.getProgram("4f7f112fbb94787338004d62");
 		assertEquals("Found program by ID.", "4f7f112fbb94787338004d62", program.getId());
 		assertEquals("Ratz", program.getName());
+		assertEquals("http://pgep.francetv.fr/images/plurimedia/EMI/49/EMI_49591.jpg", program.getPhoto().get("700x394"));
 	}
 	
 	@Test
