@@ -94,8 +94,10 @@ public class ProgramServlet extends HttpServlet {
 		Date end = null;
 		try{
 			id = Integer.parseInt(program.getId());
-			start = DATE_FORMAT.parse( broadcast.getStartsAt());
-			end = DATE_FORMAT.parse( broadcast.getEndsAt());
+			if (broadcast != null){
+				start = DATE_FORMAT.parse( broadcast.getStartsAt());
+				end = DATE_FORMAT.parse( broadcast.getEndsAt());
+			}
 		} catch(Exception e){}
 		programModel.setId(id);
 		programModel.setTitle(program.getName());

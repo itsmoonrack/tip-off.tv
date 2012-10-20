@@ -205,7 +205,11 @@ public class RESTService implements PGEPService {
 				InputStreamReader reader = new InputStreamReader(stream);
 				Type type = new TypeToken<Results<Broadcast>>() {}.getType();
 				Results<Broadcast> results = gson.fromJson(reader, type);
-				return results.getResults().get(0);
+				if (results != null && results.getResults() != null) {
+					return results.getResults().get(0);
+				} else {
+					return null;
+				}
 				
 			}
 		} catch (URISyntaxException e) {
