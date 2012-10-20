@@ -167,7 +167,7 @@ public class Program{
 	public void setPhoto(Photo photo){
 		this.photo = photo;
 	}
- 	public boolean getPilot(){
+ 	public boolean isPilot(){
 		return this.pilot;
 	}
 	public void setPilot(boolean pilot){

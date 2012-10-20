@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import tv.tipoff.services.pgep.dto.Broadcast;
 import tv.tipoff.services.pgep.dto.Channel;
 import tv.tipoff.services.pgep.dto.Program;
 
@@ -54,5 +55,23 @@ public class RESTServiceIntegrationTests {
 		Channel channel = service.getChannel("4f7f115abb947873380064a1");
 		assertEquals("Found program by ID.", "4f7f115abb947873380064a1", channel.getId());
 		assertEquals("M6", channel.getName());
+	}
+	
+	@Test
+	public void testGetBroadcasts() {
+		List<Broadcast> broadcasts = service.getBroadcasts();
+		for (Broadcast broadcast : broadcasts) {
+			if (broadcast == null) {
+				Assert.fail("A broadcast was null.");
+			}
+		}
+		Assert.assertFalse(broadcasts.size() + " broadcasts was found.", broadcasts.size() == 0);
+	}
+
+	@Test
+	public void testGetBroadcastId() {
+		Broadcast broadcast = service.getBroadcast("506eb55cbb947870770023d8");
+		assertEquals("Found broadcast by ID.", "506eb55cbb947870770023d8", broadcast.getId());
+		assertEquals("Programme national", broadcast.getTitle());
 	}
 }

@@ -33,22 +33,22 @@ public class Broadcast{
    	private String url_guide_tv;
    	private Video video;
 
- 	public String get_id(){
+ 	public String getId(){
 		return this._id;
 	}
-	public void set_id(String _id){
+	public void setId(String _id){
 		this._id = _id;
 	}
- 	public Links get_links(){
+ 	public Links getLinks(){
 		return this._links;
 	}
-	public void set_links(Links _links){
+	public void setLinks(Links _links){
 		this._links = _links;
 	}
- 	public Providers get_providers(){
+ 	public Providers getProviders(){
 		return this._providers;
 	}
-	public void set_providers(Providers _providers){
+	public void setProviders(Providers _providers){
 		this._providers = _providers;
 	}
  	public Audio getAudio(){
@@ -87,16 +87,16 @@ public class Broadcast{
 	public void setDuration(Number duration){
 		this.duration = duration;
 	}
- 	public String getEnds_at(){
+ 	public String getEndsAt(){
 		return this.ends_at;
 	}
-	public void setEnds_at(String ends_at){
+	public void setEndsAt(String ends_at){
 		this.ends_at = ends_at;
 	}
- 	public boolean getFirst_of_cycle(){
+ 	public boolean getFirstOfCycle(){
 		return this.first_of_cycle;
 	}
-	public void setFirst_of_cycle(boolean first_of_cycle){
+	public void setFirstOfCycle(boolean first_of_cycle){
 		this.first_of_cycle = first_of_cycle;
 	}
  	public boolean getHighlight(){
@@ -105,10 +105,10 @@ public class Broadcast{
 	public void setHighlight(boolean highlight){
 		this.highlight = highlight;
 	}
- 	public boolean getLast_of_cycle(){
+ 	public boolean getLastOfCycle(){
 		return this.last_of_cycle;
 	}
-	public void setLast_of_cycle(boolean last_of_cycle){
+	public void setLastOfCycle(boolean last_of_cycle){
 		this.last_of_cycle = last_of_cycle;
 	}
  	public boolean getLive(){
@@ -135,16 +135,16 @@ public class Broadcast{
 	public void setNovelty(boolean novelty){
 		this.novelty = novelty;
 	}
- 	public boolean getPreviously_broadcast(){
+ 	public boolean getPreviouslyBroadcast(){
 		return this.previously_broadcast;
 	}
-	public void setPreviously_broadcast(boolean previously_broadcast){
+	public void setPreviouslyBroadcast(boolean previously_broadcast){
 		this.previously_broadcast = previously_broadcast;
 	}
- 	public List getPrime_time(){
+ 	public List getPrimeTime(){
 		return this.prime_time;
 	}
-	public void setPrime_time(List prime_time){
+	public void setPrimeTime(List prime_time){
 		this.prime_time = prime_time;
 	}
  	public Program getProgram(){
@@ -159,10 +159,10 @@ public class Broadcast{
 	public void setRating(Rating rating){
 		this.rating = rating;
 	}
- 	public String getStarts_at(){
+ 	public String getStartsAt(){
 		return this.starts_at;
 	}
-	public void setStarts_at(String starts_at){
+	public void setStartsAt(String starts_at){
 		this.starts_at = starts_at;
 	}
  	public String getStrapline(){
@@ -189,10 +189,10 @@ public class Broadcast{
 	public void setTitle(String title){
 		this.title = title;
 	}
- 	public String getUpdated_at(){
+ 	public String getUpdatedAt(){
 		return this.updated_at;
 	}
-	public void setUpdated_at(String updated_at){
+	public void setUpdatedAt(String updated_at){
 		this.updated_at = updated_at;
 	}
  	public String getUrl_guide_tv(){

@@ -18,25 +18,25 @@ public class Channel{
  	public String getId(){
 		return this._id;
 	}
-	public void set_id(String _id){
+	public void setId(String _id){
 		this._id = _id;
 	}
- 	public Links get_links(){
+ 	public Links getLinks(){
 		return this._links;
 	}
-	public void set_links(Links _links){
+	public void setLinks(Links _links){
 		this._links = _links;
 	}
- 	public Providers get_providers(){
+ 	public Providers getProviders(){
 		return this._providers;
 	}
-	public void set_providers(Providers _providers){
+	public void setProviders(Providers _providers){
 		this._providers = _providers;
 	}
- 	public String getBase_line(){
+ 	public String getBaseLine(){
 		return this.base_line;
 	}
-	public void setBase_line(String base_line){
+	public void setBaseLine(String base_line){
 		this.base_line = base_line;
 	}
  	public List getCategories(){
@@ -69,10 +69,10 @@ public class Channel{
 	public void setPackages(List packages){
 		this.packages = packages;
 	}
- 	public String getUpdated_at(){
+ 	public String getUpdatedAt(){
 		return this.updated_at;
 	}
-	public void setUpdated_at(String updated_at){
+	public void setUpdatedAt(String updated_at){
 		this.updated_at = updated_at;
 	}
 }
