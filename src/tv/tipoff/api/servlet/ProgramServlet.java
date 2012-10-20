@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import tv.tipoff.application.model.Program;
 import tv.tipoff.application.model.Show;
 import tv.tipoff.services.infrastructure.DAOProgram;
-import tv.tipoff.services.infrastructure.DAOUser;
 
 public class ProgramServlet extends HttpServlet {
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
