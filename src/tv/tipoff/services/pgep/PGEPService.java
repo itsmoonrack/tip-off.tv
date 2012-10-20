@@ -20,7 +20,7 @@ public interface PGEPService {
 	 * @param id
 	 *   ID de l'émission.
 	 */
-	public Program getProgram(int id);
+	public Program getProgram(String id);
 	
 	/**
 	 * Liste des émissions.
@@ -33,7 +33,7 @@ public interface PGEPService {
 	 * @param id
 	 *   ID de la chaîne.
 	 */
-	public Channel getChannel(int id);
+	public Channel getChannel(String id);
 	
 	/**
 	 * Liste des chaînes.
@@ -53,5 +53,5 @@ public interface PGEPService {
 	 * @param id
 	 *   ID de la diffusion.
 	 */
-	public Broadcast getBroadcast(int id);
+	public Broadcast getBroadcast(String id);
 }

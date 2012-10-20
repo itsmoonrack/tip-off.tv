@@ -1,4 +1,4 @@
-package tv.tipoff.services.infrastructure;
+package tv.tipoff.infrastructure;
 
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
