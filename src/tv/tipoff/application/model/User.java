@@ -9,6 +9,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import tv.tipoff.infrastructure.DAOProgram;
 import tv.tipoff.infrastructure.PersistHooks;
 
 import com.google.appengine.api.datastore.Key;
@@ -32,6 +33,9 @@ public class User implements PersistHooks {
 	@Persistent private Date updated;
 	@Persistent private boolean deleted;
 
+	@Persistent private List<String> hasSeen; // list of programs seen by the user 
+	private DAOProgram daoProgram = new DAOProgram();
+		
 	public void beforeSave() {
 		if (created == null) {
 			created = new Date();
@@ -42,6 +46,7 @@ public class User implements PersistHooks {
 	public User(String pseudo) {
 		super();
 		friendsList = new ArrayList<String>();
+		hasSeen = new ArrayList<String>();
 		this.pseudo = pseudo;
 		this.deleted = false;
 	}
@@ -95,6 +100,22 @@ public class User implements PersistHooks {
 	public boolean isDeleted() {
 		return deleted;
 	}
+	
+	public void addHasSeen(Program program){
+		this.hasSeen.add(program.getId());
+	}
+	
+	
+	public List<Program> hasSeen(){
+		List<Program> programs = new ArrayList<Program>();
+		for (String  id : hasSeen){
+			Program pro = daoProgram.getProgram(id);
+			programs.add(pro);
+		}
+		return programs;	
+	}
+	
+	
 
 	/**
 	 * ajout d'un contact dans la liste, si il n'y est pas déjà

@@ -8,6 +8,8 @@ import java.io.StringWriter;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -17,273 +19,208 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EncodingUtils;
 
 import tv.tipoff.services.pgep.dto.Broadcast;
 import tv.tipoff.services.pgep.dto.Channel;
 import tv.tipoff.services.pgep.dto.Program;
 import tv.tipoff.services.pgep.dto.Results;
+import tv.tipoff.services.pgep.dto.Schedule;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class RESTService implements PGEPService {
-	
+
 	final Gson gson;
 	final String host;
 	final String scheme;
 	final HttpClient client;
 	
+	int limit;
+	
 	public RESTService() {
 		this.gson = new Gson();
 		this.host = "pgep.francetv.fr";
+		this.limit = 200;
 		this.scheme = "http";
 		this.client = new DefaultHttpClient();
 	}
 
 	@Override
 	public Program getProgram(String id) {
-		URIBuilder builder = new URIBuilder();
-		builder.setScheme(scheme)
-			.setHost(host)
-			.setPath("/programs/" + id)
-			.setParameter("format", "json");
-		
+		URIBuilder builder = newURIBuilder().setPath("/programs/" + id);
+
 		try {
-			URI uri = builder.build();
-			HttpGet request = new HttpGet(uri);
-			HttpResponse response = client.execute(request);
-			HttpEntity entity = response.getEntity();
-			
-			if (entity != null) {
-				InputStream stream = entity.getContent();
-				InputStreamReader reader = new InputStreamReader(stream);
-				Type type = new TypeToken<Results<Program>>() {}.getType();
-				Results<Program> results = gson.fromJson(reader, type);
-				return results.getResults().get(0);
-				
-			}
+			InputStream stream = request(builder.build());
+			Type type = new TypeToken<Results<Program>>() {
+			}.getType();
+			Results<Program> results = gson.fromJson(new InputStreamReader(stream), type);
+			return results.getResults().get(0);
+
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-		return null;
 	}
 
 	public String getProgramJSON(String id) {
-		URIBuilder builder = new URIBuilder();
-		builder.setScheme(scheme)
-			.setHost(host)
-			.setPath("/programs/" + id)
-			.setParameter("format", "json");
+		URIBuilder builder = newURIBuilder().setPath("/programs/" + id);
 		
 		try {
-			URI uri = builder.build();
-			HttpGet request = new HttpGet(uri);
-			HttpResponse response = client.execute(request);
-			HttpEntity entity = response.getEntity();
-			
-			if (entity != null) {
-				InputStream stream = entity.getContent();
-				InputStreamReader reader = new InputStreamReader(stream);
-				
-				BufferedReader buffer=new BufferedReader(reader);
-				String line="";
-				StringWriter writer=new StringWriter();
-				while ( null!=(line=buffer.readLine())){
-					writer.write(line); 
-				}
-
-				return writer.toString();
-				
+			InputStream stream = request(builder.build());
+			InputStreamReader reader = new InputStreamReader(stream);
+			BufferedReader buffer = new BufferedReader(reader);
+			String line="";
+			StringWriter writer = new StringWriter();
+			while ((line=buffer.readLine()) != null){
+				writer.write(line); 
 			}
-		} catch (URISyntaxException e) {
+			return writer.toString();
+				
+		} catch (URISyntaxException | IOException e) {
 			throw new RuntimeException(e);
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-		return null;
 	}
 
 	@Override
 	public List<Program> getPrograms() {
-		URIBuilder builder = new URIBuilder();
-		builder.setScheme(scheme)
-			.setHost(host)
-			.setPath("/programs")
-			.setParameter("format", "json");
-		
+		URIBuilder builder = newURIBuilder().setPath("/programs");
+
 		try {
-			URI uri = builder.build();
-			HttpGet request = new HttpGet(uri);
-			HttpResponse response = client.execute(request);
-			HttpEntity entity = response.getEntity();
-			
-			if (entity != null) {
-				InputStream stream = entity.getContent();
-				InputStreamReader reader = new InputStreamReader(stream);
-				Type type = new TypeToken<Results<Program>>() {}.getType();
-				Results<Program> results = gson.fromJson(reader, type);
-				return results.getResults();
-				
-			}
+			InputStream stream = request(builder.build());
+			Type type = new TypeToken<Results<Program>>() {
+			}.getType();
+			Results<Program> results = gson.fromJson(new InputStreamReader(stream), type);
+			return results.getResults();
+
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-		return null;
-		/**
-		try {
-			URL url = new URL("http://pgep.francetv.fr/programs?format=json");
-			InputStreamReader reader = new InputStreamReader(url.openStream());
-			Type type = new TypeToken<Results<Program>>() {}.getType();
-			Results<Program> results = gson.fromJson(reader, type);
-			return results.getResults();
-		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return null;**/
 	}
 
 	@Override
 	public Channel getChannel(String id) {
-		URIBuilder builder = new URIBuilder();
-		builder.setScheme(scheme)
-			.setHost(host)
-			.setPath("/channels/" + id)
-			.setParameter("format", "json");
-		
+		URIBuilder builder = newURIBuilder().setPath("/channels/" + id);
+
 		try {
-			URI uri = builder.build();
-			HttpGet request = new HttpGet(uri);
-			HttpResponse response = client.execute(request);
-			HttpEntity entity = response.getEntity();
-			
-			if (entity != null) {
-				InputStream stream = entity.getContent();
-				InputStreamReader reader = new InputStreamReader(stream);
-				Type type = new TypeToken<Results<Channel>>() {}.getType();
-				Results<Channel> results = gson.fromJson(reader, type);
-				return results.getResults().get(0);
-				
-			}
+			InputStream stream = request(builder.build());
+			Type type = new TypeToken<Results<Channel>>() {
+			}.getType();
+			Results<Channel> results = gson.fromJson(new InputStreamReader(stream), type);
+			return results.getResults().get(0);
+
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-		return null;
 	}
 
 	@Override
 	public List<Channel> getChannels() {
-		URIBuilder builder = new URIBuilder();
-		builder.setScheme(scheme)
-			.setHost(host)
-			.setPath("/channels")
-			.setParameter("format", "json");
-		
+		URIBuilder builder = newURIBuilder().setPath("/channels");
+
 		try {
-			URI uri = builder.build();
-			HttpGet request = new HttpGet(uri);
-			HttpResponse response = client.execute(request);
-			HttpEntity entity = response.getEntity();
-			
-			if (entity != null) {
-				InputStream stream = entity.getContent();
-				InputStreamReader reader = new InputStreamReader(stream);
-				Type type = new TypeToken<Results<Channel>>() {}.getType();
-				Results<Channel> results = gson.fromJson(reader, type);
-				return results.getResults();
-				
-			}
+			InputStream stream = request(builder.build());
+			Type type = new TypeToken<Results<Channel>>() {
+			}.getType();
+			Results<Channel> results = gson.fromJson(new InputStreamReader(stream), type);
+			return results.getResults();
+
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-		return null;
 	}
 
 	@Override
 	public List<Broadcast> getBroadcasts() {
-		URIBuilder builder = new URIBuilder();
-		builder.setScheme(scheme)
-			.setHost(host)
-			.setPath("/broadcasts")
-			.setParameter("format", "json");
-		
+		URIBuilder builder = newURIBuilder().setPath("/broadcasts");
+
 		try {
-			URI uri = builder.build();
-			HttpGet request = new HttpGet(uri);
-			HttpResponse response = client.execute(request);
-			HttpEntity entity = response.getEntity();
-			
-			if (entity != null) {
-				InputStream stream = entity.getContent();
-				InputStreamReader reader = new InputStreamReader(stream);
-				Type type = new TypeToken<Results<Broadcast>>() {}.getType();
-				Results<Broadcast> results = gson.fromJson(reader, type);
-				return results.getResults();
+			InputStream stream = request(builder.build());
+			Type type = new TypeToken<Results<Broadcast>>() {
+			}.getType();
+			Results<Broadcast> results = gson.fromJson(new InputStreamReader(stream), type);
+			return results.getResults();
 				
-			}
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-		return null;
+	}
+
+	@Override
+	public List<Broadcast> getBroadcasts(Date to) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ");
+		URIBuilder builder = newURIBuilder().setPath("/broadcasts")
+				.setParameter("to", formatter.format(to));
+
+		try {
+			InputStream stream = request(builder.build());
+			Type type = new TypeToken<Results<Broadcast>>() {
+			}.getType();
+			Results<Broadcast> results = gson.fromJson(new InputStreamReader(stream), type);
+			return results.getResults();
+				
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public Broadcast getBroadcast(String id) {
-		URIBuilder builder = new URIBuilder();
-		builder.setScheme(scheme)
-			.setHost(host)
-			.setPath("/broadcasts/" + id)
-			.setParameter("format", "json");
-		
+		URIBuilder builder = newURIBuilder().setPath("/broadcasts/" + id);
+
 		try {
-			URI uri = builder.build();
-			HttpGet request = new HttpGet(uri);
-			HttpResponse response = client.execute(request);
-			HttpEntity entity = response.getEntity();
-			
-			if (entity != null) {
-				InputStream stream = entity.getContent();
-				InputStreamReader reader = new InputStreamReader(stream);
-				Type type = new TypeToken<Results<Broadcast>>() {}.getType();
-				Results<Broadcast> results = gson.fromJson(reader, type);
-				if (results != null && results.getResults() != null) {
-					return results.getResults().get(0);
-				} else {
-					return null;
-				}
-				
-			}
+			InputStream stream = request(builder.build());
+			Type type = new TypeToken<Results<Broadcast>>() {
+			}.getType();
+			Results<Broadcast> results = gson.fromJson(new InputStreamReader(stream), type);
+			return results.getResults().get(0);
+
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<Schedule> getSchedule() {
+		URIBuilder builder = newURIBuilder().setPath("/schedule");
+		
+		try {
+			InputStream stream = request(builder.build());
+			
+			Type type = new TypeToken<Results<Schedule>>() {
+			}.getType();
+			Results<Schedule> results = gson.fromJson(new InputStreamReader(stream), type);
+			return results.getResults();
+			
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+	
+	protected URIBuilder newURIBuilder() {
+		return new URIBuilder().setScheme(scheme).setHost(host)
+				.setParameter("limit", String.valueOf(limit))
+				.setParameter("format", "json");
+	}
+	
+	protected InputStream request(URI uri) {
+		HttpGet request = new HttpGet(uri);
+		HttpResponse response;
+		try {
+			response = client.execute(request);
+			HttpEntity entity = response.getEntity();
+			
+			return entity.getContent();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		return null;
 	}
 
