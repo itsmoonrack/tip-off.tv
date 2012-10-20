@@ -2,12 +2,13 @@
 	<servlet>
 		<servlet-name>TipOff_TV</servlet-name>
 		<servlet-class>tv.tipoff.api.TipOff_TVServlet</servlet-class>
-		<servlet-mapping>
-			<servlet-name>TipOff_TV</servlet-name>
-			<url-pattern>/tipoff_tv</url-pattern>
-		</servlet-mapping>
-	</servlet>
+	<servlet-mapping>
+		<servlet-name>TipOff_TV</servlet-name>
+		<url-pattern>/tipoff_tv</url-pattern>
+	</servlet-mapping>
 	
+	
+	</servlet>
 	<servlet>
 		<servlet-name>User</servlet-name>
 		<servlet-class>tv.tipoff.api.servlet.UserServlet</servlet-class>
@@ -15,15 +16,6 @@
 	<servlet-mapping>
 		<servlet-name>User</servlet-name>
 		<url-pattern>/user</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>Program</servlet-name>
-		<servlet-class>tv.tipoff.api.servlet.ProgramServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Program</servlet-name>
-		<url-pattern>/program</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>

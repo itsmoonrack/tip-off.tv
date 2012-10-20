@@ -1,0 +1,92 @@
+{
+	"diffusion":[{
+		"channel": "tf1",
+		"show": {
+			"title": "UEFA",
+			"start": "20/10/2012 20:50",
+			"end": "20/10/2012 23:00",
+			"affinity": "0.31",
+			"photo": "http://pgep.francetv.fr/images/plurimedia/EMI/33/EMI_333634.175x99.jpg"
+			}
+		},
+		{
+		"channel": "france2",
+		"show": {
+			"title": "L'effet papillon",
+			"start": "20/10/2012 20:30",
+			"end": "20/10/2012 22:30",
+			"affinity": "0.81",
+			"photo": "http://pgep.francetv.fr/images/plurimedia/COL/37/COL_371102.175x99.jpg"
+			}
+		},
+		{
+		"channel": "france3",
+		"show": {
+			"title": "L'effet papillon",
+			"start": "20/10/2012 20:30",
+			"end": "20/10/2012 22:30",
+			"affinity": "0.81",
+			"photo": "http://pgep.francetv.fr/images/plurimedia/COL/37/COL_371102.175x99.jpg"
+			}
+		},
+		{
+		"channel": "canalplus",
+		"show": {
+			"title": "Le Zapping",
+			"start": "20/10/2012 20:30",
+			"end": "20/10/2012 22:30",
+			"affinity": "0.81",
+			"photo": "http://pgep.francetv.fr/images/plurimedia/EMI/38/EMI_381199.175x99.jpg"
+			}
+		},
+		{
+		"channel": "arte",
+		"show": {
+			"title": "Des racines et des ailes",
+			"start": "20/10/2012 20:30",
+			"end": "20/10/2012 22:30",
+			"affinity": "0.81",
+			"photo": "http://pgep.francetv.fr/images/plurimedia/EMI/27/EMI_271583.175x99.jpg"
+			}
+		},
+		{
+		"channel": "m6",
+		"show": {
+			"title": "Turbo",
+			"start": "20/10/2012 20:30",
+			"end": "20/10/2012 22:30",
+			"affinity": "0.81",
+			"photo": "http://pgep.francetv.fr/images/plurimedia/EMI/22/EMI_224138.175x99.jpg"
+			}
+		},
+		{
+		"channel": "france5",
+		"show": {
+			"title": "L'effet papillon",
+			"start": "20/10/2012 20:30",
+			"end": "20/10/2012 22:30",
+			"affinity": "0.31",
+			"photo": "http://pgep.francetv.fr/images/plurimedia/EMI/32/EMI_328640.175x99.jpg"
+			}
+		},
+		{
+		"channel": "direct8",
+		"show": {
+			"title": "L'effet papillon",
+			"start": "20/10/2012 20:30",
+			"end": "20/10/2012 22:30",
+			"affinity": "0.51",
+			"photo": "http://pgep.francetv.fr/images/plurimedia/EMI/31/EMI_314658.175x99.jpg"
+			}
+		},
+		{
+		"channel": "w9",
+		"show": {
+			"title": "Vieille Morue",
+			"start": "20/10/2012 20:30",
+			"end": "20/10/2012 22:30",
+			"affinity": "0.99",
+			"photo": "http://sophie.typepad.com/sophildeleau/morue.jpg"
+		}
+	}]
+}
