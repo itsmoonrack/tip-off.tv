@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -100,6 +102,20 @@ public class RESTService implements PGEPService {
 			e.printStackTrace();
 		}
 		return null;
+		/**
+		try {
+			URL url = new URL("http://pgep.francetv.fr/programs?format=json");
+			InputStreamReader reader = new InputStreamReader(url.openStream());
+			Type type = new TypeToken<Results<Program>>() {}.getType();
+			Results<Program> results = gson.fromJson(reader, type);
+			return results.getResults();
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return null;**/
 	}
 
 	@Override
@@ -185,7 +201,6 @@ public class RESTService implements PGEPService {
 				InputStreamReader reader = new InputStreamReader(stream);
 				Type type = new TypeToken<Results<Broadcast>>() {}.getType();
 				Results<Broadcast> results = gson.fromJson(reader, type);
-				System.out.println("ok");
 				return results.getResults();
 				
 			}
@@ -218,7 +233,11 @@ public class RESTService implements PGEPService {
 				InputStreamReader reader = new InputStreamReader(stream);
 				Type type = new TypeToken<Results<Broadcast>>() {}.getType();
 				Results<Broadcast> results = gson.fromJson(reader, type);
-				return results.getResults().get(0);
+				if (results != null && results.getResults() != null) {
+					return results.getResults().get(0);
+				} else {
+					return null;
+				}
 				
 			}
 		} catch (URISyntaxException e) {

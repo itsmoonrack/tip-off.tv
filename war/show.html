@@ -118,7 +118,6 @@
 		</div><!--/.fluid-container-->
 		
 		<script>
-		
 		$.getJSON('http://pgep.francetv.fr/programs/506ee192bb9478707700642b?format=json', function(data) {
 			
 			$('#titre').append("<h3>" + data.results[0].name + "</h3>");
@@ -139,7 +138,6 @@
 			
 			$('#resume').append(data.results[0].descriptions.length_150);
 		});
-			
 		</script>
 	</body>
 </html>
