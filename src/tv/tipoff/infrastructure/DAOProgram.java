@@ -55,4 +55,14 @@ public class DAOProgram {
 			pm.close();
 		}
 	}
+
+	public void updateProgram(Program prog) {
+		pm = PMF.getPersistenceManager();
+		try {
+			pm.makePersistent(prog);
+		}
+		finally {
+			pm.close();
+		}
+	}
 }
