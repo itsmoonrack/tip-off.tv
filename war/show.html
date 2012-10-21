@@ -139,7 +139,7 @@
 			$('#photo').append("<img src='http://i.imgur.com/xDtLE.png' >");
 			$.each(data.results[0].photo, function(key, val) {
 				if(i==0 && val!="") {
-					$('#photo').empty;
+					$('#photo').empty; 
 					$('#photo').append("<img src=\"" + val + "\" >");
 					i=i+1;
 				}
