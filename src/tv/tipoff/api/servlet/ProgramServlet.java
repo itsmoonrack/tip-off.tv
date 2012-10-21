@@ -21,7 +21,7 @@ import com.google.gson.Gson;
 public class ProgramServlet extends HttpServlet {
 	private static final String PHOTO_SIZE = "175x99";
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-	public static final SimpleDateFormat PLUZZ_SERVICE = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ");
+	public static final SimpleDateFormat PLUZZ_SERVICE = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -95,6 +95,10 @@ public class ProgramServlet extends HttpServlet {
 			program.setTitle(broadcast.getChannel().getName());
 			program.setShowTitle(broadcast.getTitle());
 			program.setImageURL(broadcast.getProgram().getPhoto().get(PHOTO_SIZE));
+//			System.out.println("***********************************");
+//			System.out.println(broadcast.getProgram().getGenre());
+//			System.out.println("***********************************");
+			//program.setGenre(broadcast.getProgram().getGenre());
 			try {
 				program.setShowStart(PLUZZ_SERVICE.parse(broadcast.getStartsAt()));
 				program.setShowEnd(PLUZZ_SERVICE.parse(broadcast.getEndsAt()));

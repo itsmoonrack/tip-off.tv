@@ -156,6 +156,7 @@ public class Program implements PersistHooks {
 		StringBuffer builder = new StringBuffer();
 		builder.append("{");
 		builder.append("\"channel\": \""+ this.title +"\",");
+		builder.append("\"id\": \""+ this.id +"\",");
 		builder.append("\"photo\": \""+ this.imageURL  +"\"");
 			builder.append(",\"show\": {");
 				builder.append("\"title\": \""+  this.showTitle +"\"");
