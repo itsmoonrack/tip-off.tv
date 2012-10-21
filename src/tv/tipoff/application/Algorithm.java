@@ -7,7 +7,7 @@ import tv.tipoff.application.model.User;
 
 import java.util.List;
 
-public class algorithm {
+public class Algorithm {
 	
 	public void userProgAffinity (User user ,Program comparedProgram ){
 		List<Program> allSeenProgram = user.hasSeen();

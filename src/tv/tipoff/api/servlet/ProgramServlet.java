@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import tv.tipoff.application.Algorithm;
 import tv.tipoff.application.model.Program;
 import tv.tipoff.infrastructure.DAOProgram;
 import tv.tipoff.services.pgep.RESTService;
@@ -38,6 +39,7 @@ public class ProgramServlet extends HttpServlet {
 	public static final String ACTION_PROGRAM = "/program";
 	public static final String ACTION_PROGRAMS = "/programs";
 	public static final String ACTION_SIMILAR = "/similar";
+	public static final String ACTION_RUN = "/run";
 	public static final String ACTION_FUTUR = "/futur";
 	
 
@@ -80,9 +82,23 @@ public class ProgramServlet extends HttpServlet {
 		case ACTION_FUTUR:
 			getFutur(req,resp);
 			break;
+		case ACTION_RUN:
+			runAlgo(req,resp);
+			break;
 		default:
 			break;
 		}
+	}
+
+
+	private void runAlgo(HttpServletRequest req, HttpServletResponse resp) {
+		// ALGO POUR PROGRAM:
+		List<Program> programs = daoProgram.getAllPrograms();
+		Algorithm algo = new Algorithm();
+		for(Program program : programs){
+			
+		}
+			
 	}
 
 
@@ -123,7 +139,7 @@ public class ProgramServlet extends HttpServlet {
 
 		for (Broadcast broadcast : broadcasts){
 			Program program = new Program();
-			program.setId(broadcast.getId());
+			program.setId(broadcast.getProgram().getId());
 			program.setTitle(broadcast.getChannel().getName());
 			program.setShowTitle(broadcast.getTitle());
 			program.setImageURL(broadcast.getProgram().getPhoto().get(PHOTO_SIZE));
