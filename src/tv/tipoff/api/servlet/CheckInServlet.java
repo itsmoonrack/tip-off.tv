@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tv.tipoff.application.model.User;
+import tv.tipoff.infrastructure.DAOProgram;
 import tv.tipoff.infrastructure.DAOUser;
 import tv.tipoff.services.pgep.PGEPService;
 import tv.tipoff.services.pgep.RESTService;
@@ -22,6 +23,7 @@ public class CheckInServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private DAOUser daoUser = new DAOUser();
+	private DAOProgram daoProgram = new DAOProgram();
 	private PGEPService pluzz = new RESTService();
 	
 	/**
@@ -51,6 +53,7 @@ public class CheckInServlet extends HttpServlet {
 			resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Program Not Found");
 			return;
 		}
+		// Créer le programme en BDD (lazy-creation).
 		
 		if (user.addHasSeen(program.getId())) {
 			daoUser.updateUser(user);
@@ -58,6 +61,9 @@ public class CheckInServlet extends HttpServlet {
 		}
 		else {
 			resp.setStatus(HttpServletResponse.SC_ACCEPTED);
+			tv.tipoff.application.model.Program prog = daoProgram.getProgram(programId);
+			prog.addHasBeenSeenBy(user);
+			daoProgram.updateProgram(prog);
 		}
 	}
 

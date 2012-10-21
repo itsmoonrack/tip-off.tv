@@ -46,12 +46,12 @@ public class User implements PersistHooks {
 			created = new Date();
 		}
 		updated = new Date();
+		hasSeen = new HashSet<String>();
 	}
 
 	public User(String pseudo) {
 		super();
 		this.friendsList = new ArrayList<String>();
-		this.hasSeen = new HashSet<String>();
 		this.pseudo = pseudo;
 		this.deleted = false;
 	}
@@ -118,6 +118,10 @@ public class User implements PersistHooks {
 
 	public boolean isDeleted() {
 		return deleted;
+	}
+	
+	public void setHasSeen(Set<String> list) {
+		this.hasSeen = list;
 	}
 	
 	/**
