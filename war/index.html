@@ -103,29 +103,29 @@
 						<h3>Mais que regardes-tu espèce de trou du cul ?</h3>
 					</div>
 					<div class="row-fluid">
-						<div class="span4" id="channel_tf1">
+						<div class="span4" id="channel_TF1">
 						</div><!--/span-->
-						<div class="span4" id="channel_france2">
+						<div class="span4" id="channel_France2">
 						</div><!--/span-->
-						<div class="span4" id="channel_france3">
-						</div><!--/span-->
-					</div><!--/row-->
-					<br /><br />
-					<div class="row-fluid">
-						<div class="span4" id="channel_canalplus">
-						</div><!--/span-->
-						<div class="span4" id="channel_france5">
-						</div><!--/span-->
-						<div class="span4" id="channel_m6">
+						<div class="span4" id="channel_France3">
 						</div><!--/span-->
 					</div><!--/row-->
 					<br /><br />
 					<div class="row-fluid">
-						<div class="span4" id="channel_arte">
+						<div class="span4" id="channel_Canal">
 						</div><!--/span-->
-						<div class="span4" id="channel_direct8">
+						<div class="span4" id="channel_France5">
 						</div><!--/span-->
-						<div class="span4" id="channel_w9">
+						<div class="span4" id="channel_M6">
+						</div><!--/span-->
+					</div><!--/row-->
+					<br /><br />
+					<div class="row-fluid">
+						<div class="span4" id="channel_Arte">
+						</div><!--/span-->
+						<div class="span4" id="channel_D8">
+						</div><!--/span-->
+						<div class="span4" id="channel_W9">
 						</div><!--/span-->
 					</div><!--/row-->
 				</div><!--/span-->
@@ -135,7 +135,7 @@
 		</div><!--/.fluid-container-->
 		
 		<script>
-			$.getJSON('ajax/test.json', function(data) {
+			$.getJSON('/program/programs', function(data) {
 				var items = [];
 
 				$.each(data.diffusion, function(key, val) {
@@ -151,28 +151,31 @@
 						colorB=0;
 						colorG=255;
 					}
-					var photo=val.show.photo;
-					if(val.show.photo==""){
+					var photo=val.photo;
+					
+					if(photo=='null'){
 						photo="http://i.imgur.com/xDtLE.png"
 					}
 					
 					var start = (new Date(val.show.start)).toLocaleTimeString()
 					var end = (new Date(val.show.end)).toLocaleTimeString()
+										
+					console.log(val.channel.replace(/\s/g, '').replace('+', ''));
 					
-					$('#channel_' + val.channel).append(
+					$('#channel_' + val.channel.replace(/\s/g, '').replace('+', '')).append(
 						"<div style=\"width: 15px; position: absolute; margin-left:8px; margin-top:8px; \">" +
 						"<div style=\"background-color: rgb(240,240,240); width: 15px; height: " + ((1 - val.show.affinity)*120) + "px;\"></div>" +
 						"<div style=\"background-color: rgb("+ colorR +","+ colorG +","+ colorB +"); width: 15px; height: " + (val.show.affinity*120) + "px;\"></div>" +
 						"<font size=\"1px\">" + Math.round(val.show.affinity * 100) + "%</font></div>" +
 						"<img class=\"logo_shows\" src=\"" + photo + "\" />" +
-						"<img class=\"logo_channel\" src=\"img/channel/channel_" + val.channel + ".png\" /><br /><br />" +
-						val.show.title + "<br />" +
-						"<font size=\"1px\">" + start.substring(0, start.length - 3) + " - " + start.substring(0, end.length - 3) + "</font>"
+						"<img class=\"logo_channel\" src=\"img/channel/channel_" + val.channel.replace(/\s/g, '').replace('+', '') + ".png\" /><br /><br />" +
+						val.show.title + "<br />"
+						//+ "<font size=\"1px\">" + start.substring(0, start.length - 3) + " - " + start.substring(0, end.length - 3) + "</font>"
 					);
-					
-					$('#channel_' + val.channel).click(function() {
+					//$("div:hidden").slideDown("slow");
+					/*$('#channel_' + val.channel).click(function() {
 						window.location = "show.html?id=" + val.show.id;
-					});
+					});*/
 				});
 			});
 		</script>
