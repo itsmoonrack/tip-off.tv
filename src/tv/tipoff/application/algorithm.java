@@ -10,7 +10,9 @@ public class algorithm {
 	
 	public void userProgAffinity (User user ,Program comparedProgram ){
 		List<Program> allSeenProgram = user.hasSeen();
-		double totalAffinity=0;
+		int totalAffinity=0;
+		int genreAffinity=0;
+		int finalAffinity=0;
 		boolean check=false;  
 		for(Program program : allSeenProgram){
 			for (Tuple<Program, Integer> pr : program.getSimilarTo()){
@@ -18,15 +20,23 @@ public class algorithm {
 					totalAffinity=totalAffinity +pr.y;
 				}
 			}
+			if(program.getGenre()==comparedProgram.getGenre()){
+				genreAffinity++;
+			}
+		}
+		if(allSeenProgram.size()>0){
+			finalAffinity=(genreAffinity+totalAffinity)/(2*allSeenProgram.size());
+		}else{
+			finalAffinity=genreAffinity/allSeenProgram.size();
 		}
 		for(Tuple<Program,Integer> tp : user.getAffinity()){
 			if(tp.x.getId() == comparedProgram.getId()){
-				tp.y=(int) (totalAffinity/allSeenProgram.size());
+				tp.y=finalAffinity;
 				check=true;
 			}
 		}
 		if(!check){
-			Tuple<String,Integer> tp = new Tuple<String,Integer>(comparedProgram.getId(),(int) (totalAffinity/allSeenProgram.size()));
+			Tuple<String,Integer> tp = new Tuple<String,Integer>(comparedProgram.getId(),finalAffinity);
 			user.addAffinity(tp);
 		}
 

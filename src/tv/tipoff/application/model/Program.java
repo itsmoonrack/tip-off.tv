@@ -25,6 +25,7 @@ public class Program implements PersistHooks {
 	@Persistent private String id;
 	@Persistent private String title;
 	@Persistent private String imageURL;
+	@Persistent private String genre;
 	
 	@Persistent private String showTitle;
 	@Persistent private Date showStart;
@@ -168,6 +169,15 @@ public class Program implements PersistHooks {
 		builder.append("}");
 		
 		return builder.toString();
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public String setGenre(String genre) {
+		this.genre = genre;
+		return genre;
 	}
 	
 	
