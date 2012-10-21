@@ -36,6 +36,9 @@ public class User implements PersistHooks {
 	@Persistent private boolean deleted;
 
 	@Persistent private Set<String> hasSeen; // list of programs seen by the user 
+	
+	@Persistent private List<Tuple<String,Integer>> affinity; // tuple<id program, affinity>
+	
 	private DAOProgram daoProgram = new DAOProgram();
 		
 	public void beforeSave() {
@@ -53,6 +56,19 @@ public class User implements PersistHooks {
 		this.deleted = false;
 	}
 
+	public void addAffinity(Tuple<String, Integer> tp){
+		this.affinity.add(tp);
+	}
+	
+	public List<Tuple<Program, Integer>> getAffinity() {
+		List<Tuple<Program, Integer>> affinities = new ArrayList<Tuple<Program, Integer>>();
+		for (Tuple<String,Integer> sim : affinity){
+			Tuple<Program,Integer> s = new Tuple<Program,Integer>(daoProgram.getProgram(sim.x),sim.y);
+			affinities.add(s);
+		}
+		return affinities;
+	}
+	
 	// pseudo,birthdate,email,sex,job,city,desc)
 	public User(String pseudo, String email) {
 		super();
