@@ -100,7 +100,7 @@
 				</div><!--/span-->
 				<div class="span9">
 					<div class="hero-unit">
-						<h3>Mais que regardes-tu espèce de trou du cul ?</h3>
+						<h3>Qu'est-ce que j'pourrais bien regarder o_O ?</h3>
 					</div>
 					<div class="row-fluid">
 						<div class="span4" id="channel_TF1">
@@ -157,25 +157,22 @@
 						photo="http://i.imgur.com/xDtLE.png"
 					}
 					
-					var start = (new Date(val.show.start)).toLocaleTimeString()
-					var end = (new Date(val.show.end)).toLocaleTimeString()
-										
-					console.log(val.channel.replace(/\s/g, '').replace('+', ''));
+					var channel = val.channel.replace(/\s/g, '').replace('+', '').replace('\'','');
 					
-					$('#channel_' + val.channel.replace(/\s/g, '').replace('+', '')).append(
+					$('#channel_' + channel).append(
 						"<div style=\"width: 15px; position: absolute; margin-left:8px; margin-top:8px; \">" +
 						"<div style=\"background-color: rgb(240,240,240); width: 15px; height: " + ((1 - val.show.affinity)*120) + "px;\"></div>" +
 						"<div style=\"background-color: rgb("+ colorR +","+ colorG +","+ colorB +"); width: 15px; height: " + (val.show.affinity*120) + "px;\"></div>" +
 						"<font size=\"1px\">" + Math.round(val.show.affinity * 100) + "%</font></div>" +
 						"<img class=\"logo_shows\" src=\"" + photo + "\" />" +
-						"<img class=\"logo_channel\" src=\"img/channel/channel_" + val.channel.replace(/\s/g, '').replace('+', '') + ".png\" /><br /><br />" +
-						val.show.title + "<br />"
-						//+ "<font size=\"1px\">" + start.substring(0, start.length - 3) + " - " + start.substring(0, end.length - 3) + "</font>"
+						"<img class=\"logo_channel\" src=\"img/channel/channel_" + channel + ".png\" /><br /><br />" +
+						val.show.title + "<br />" +
+						"<font size=\"1px\">" + val.show.start.substring(11) + " - " + val.show.end.substring(11) + "</font>"
 					);
 					//$("div:hidden").slideDown("slow");
-					/*$('#channel_' + val.channel).click(function() {
-						window.location = "show.html?id=" + val.show.id;
-					});*/
+					$('#channel_' + channel).click(function() {
+						window.location = "show.html?id=" + val.id;
+					});
 				});
 			});
 		</script>
