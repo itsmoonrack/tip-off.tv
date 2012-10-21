@@ -21,6 +21,8 @@ import com.google.gson.Gson;
 public class ProgramServlet extends HttpServlet {
 	private static final String PHOTO_SIZE = "175x99";
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+	public static final SimpleDateFormat PLUZZ_SERVICE = new SimpleDateFormat("yyyy-MM-dd'T'HH:mmZ");
+	
 	private static final long serialVersionUID = 1L;
 	
 	public static final String PARAM_ID = "id";
@@ -69,10 +71,10 @@ public class ProgramServlet extends HttpServlet {
 			forwardProgram(req,resp);
 			break;
 		case ACTION_SIMILAR:
-			getPrograms(req,resp);
+			similarProgram(req,resp);
 			break;
 		case ACTION_PROGRAMS:
-			similarProgram(req,resp);
+			getPrograms(req,resp);
 			break;
 		default:
 			break;
@@ -80,7 +82,43 @@ public class ProgramServlet extends HttpServlet {
 	}
 
 	private void getPrograms(HttpServletRequest req, HttpServletResponse resp) {
-		pluzzService;
+
+		List<Broadcast> broadcasts = pluzzService.getBroadcasts(new Date());
+
+		StringBuilder builder = new StringBuilder();
+		builder.append("{\"diffusion\":[");
+		int size = broadcasts.size(), i = 1;
+
+		for (Broadcast broadcast : broadcasts){
+			Program program = new Program();
+			program.setId(broadcast.getId());
+			program.setTitle(broadcast.getChannel().getName());
+			program.setShowTitle(broadcast.getTitle());
+			program.setImageURL(broadcast.getProgram().getPhoto().get(PHOTO_SIZE));
+			try {
+				program.setShowStart(PLUZZ_SERVICE.parse(broadcast.getStartsAt()));
+				program.setShowEnd(PLUZZ_SERVICE.parse(broadcast.getEndsAt()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
+			daoProgram.createProgram(program);
+
+			resp.setCharacterEncoding("utf-8");
+
+			if (size != i++){
+				builder.append(program.toJSON() +",");
+			} else {
+				builder.append(program.toJSON());
+			}
+
+		}
+		builder.append("]}");
+		try {
+			resp.getWriter().print(builder);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void similarProgram(HttpServletRequest req, HttpServletResponse resp) {
