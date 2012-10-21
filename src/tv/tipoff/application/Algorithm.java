@@ -4,10 +4,15 @@ package tv.tipoff.application;
 import tv.tipoff.application.model.Program;
 import tv.tipoff.application.model.Tuple;
 import tv.tipoff.application.model.User;
+import tv.tipoff.infrastructure.DAOProgram;
+import tv.tipoff.infrastructure.DAOUser;
 
 import java.util.List;
 
 public class Algorithm {
+	
+	static DAOProgram daoProgram = new DAOProgram();
+	static DAOUser daoUser = new DAOUser();
 	
 	public void userProgAffinity (User user ,Program comparedProgram ){
 		List<Program> allSeenProgram = user.hasSeen();
@@ -40,8 +45,10 @@ public class Algorithm {
 			Tuple<String,Integer> tp = new Tuple<String,Integer>(comparedProgram.getId(),finalAffinity);
 			user.addAffinity(tp);
 		}
-
+		daoUser.updateUser(user);
 	}
+	
+	
 	public void progProgAffinity(Program program){
 		List<User> allWatchers = program.getHasBeenSeenBy();
 		boolean check=false;
@@ -78,8 +85,8 @@ public class Algorithm {
 				if(!check){
 					Tuple<String,Integer> tp = new Tuple<String,Integer>(program.getId(),100*watchedBoth/connectedWatchers.size());
 					connectedProgram.addSimilarProgram(tp);
-					
 				}
+				daoProgram.updateProgram(program);
 			}
 		}
 	}

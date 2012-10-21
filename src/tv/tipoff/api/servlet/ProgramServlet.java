@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import tv.tipoff.application.Algorithm;
 import tv.tipoff.application.model.Program;
+import tv.tipoff.application.model.User;
 import tv.tipoff.infrastructure.DAOProgram;
+import tv.tipoff.infrastructure.DAOUser;
 import tv.tipoff.services.pgep.RESTService;
 import tv.tipoff.services.pgep.dto.Broadcast;
 
@@ -58,6 +60,7 @@ public class ProgramServlet extends HttpServlet {
 	Gson gson = new Gson();
 
 	private static DAOProgram daoProgram = new DAOProgram();
+	private static DAOUser daoUser = new DAOUser();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -96,7 +99,13 @@ public class ProgramServlet extends HttpServlet {
 		List<Program> programs = daoProgram.getAllPrograms();
 		Algorithm algo = new Algorithm();
 		for(Program program : programs){
-			
+			algo.progProgAffinity(program);
+		}
+		List<User> users = daoUser.getAllUsers();
+		for(User user : users){
+			for(Program comparedProgram : programs){
+				algo.userProgAffinity(user, comparedProgram);
+			}
 		}
 			
 	}
