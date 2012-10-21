@@ -110,7 +110,7 @@
 						<div id="photo" class="span8">
 						</div><!--/span-->
 						<div id="resume" class="span4" style="text-align: left;">
-							<span style="font-weight:bold;">Résumé :</font><br />
+							<span style="font-weight:bold;">Résumé :</font><br /></span><span>
 						</div><!--/span-->
 					</div><!--/row-->
 					<br /><br />
@@ -128,15 +128,20 @@
 			    return results[1] || 0;
 			}
 			
+			// Fait son check-in.
+			$.post("/checkin", {pseudo: "dude", program_id: $.urlParam('id')});
+			
 			$.getJSON('/program/program?id=' + $.urlParam('id'), function(data) {
 			
 			$('#titre').append("<h3 style=\"margin-left: 55px;\">" + data.results[0].name + "</h3>");
 			
 			var i = 0;
+			$('#photo').append("<img src='http://i.imgur.com/xDtLE.png' >");
 			$.each(data.results[0].photo, function(key, val) {
-				if(i==0) {
+				if(i==0 && val!="") {
+					$('#photo').empty(); 
 					$('#photo').append("<img src=\"" + val + "\" >");
-					i=i+1;
+					i=1;
 				}
 			})
 			

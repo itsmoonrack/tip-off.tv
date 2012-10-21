@@ -88,31 +88,9 @@ public class DAOUser {
 	 * 
 	 * @param pseudo
 	 */
-	public void updateUser(String pseudo,
-			Date birthdate, String email, String sex, String job, String city,
-			String desc) {
-		System.out.println("update");
-		assert pseudo != null : "pseudo null";
-		assert pseudo.equals("") : "pseudo vide";
-		assert birthdate != null : "birthdday null";
-		assert email != null : "email null";
-		assert email.equals("") : "email vide";
-		assert sex != null : "sex null";
-		assert sex.equals("") : "sex vide";
-
+	public void updateUser(User user) {
 		pm = PMF.getPersistenceManager();
-
-		Key k = KeyFactory.createKey(User.class.getSimpleName(), pseudo);
-		try {
-			User user = pm.getObjectById(User.class, k);
-			if (user != null) {
-				if (email != null) {
-					user.setEmail(email);
-				}
-			}
-		} catch (Exception e) {
-			System.err.println(" !!! Trying an non-existing User!");
-		}
+		pm.makePersistent(user);
 		pm.close();
 	}
 

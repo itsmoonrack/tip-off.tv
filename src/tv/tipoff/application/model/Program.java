@@ -138,9 +138,8 @@ public class Program implements PersistHooks {
 	@Override
 	public void beforeSave() { }
 	
-	public void addSimilarProgram(Tuple<Program, Integer> prog){
-		Tuple<String, Integer> p = new Tuple<String, Integer>(prog.x.getId(), prog.y);
-		this.similarTo.add(p);
+	public void addSimilarProgram(Tuple<String, Integer> tp){
+		this.similarTo.add(tp);
 	}
 	
 	public List<Tuple<Program, Integer>> getSimilarTo() {

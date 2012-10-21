@@ -8,6 +8,7 @@
 		</servlet-mapping>
 	</servlet>
 	
+	<!-- User Servlet -->
 	<servlet>
 		<servlet-name>User</servlet-name>
 		<servlet-class>tv.tipoff.api.servlet.UserServlet</servlet-class>
@@ -17,7 +18,7 @@
 		<url-pattern>/user</url-pattern>
 	</servlet-mapping>
 	
-	<!-- PROGRAM -->
+	<!-- Program Servlet -->
 	<servlet>
 		<servlet-name>Program</servlet-name>
 		<servlet-class>tv.tipoff.api.servlet.ProgramServlet</servlet-class>
@@ -31,6 +32,15 @@
 		<url-pattern>/program/*</url-pattern>
 	</servlet-mapping>
 	
+	<!-- Check In Servlet -->
+	<servlet>
+		<servlet-name>CheckIn</servlet-name>
+		<servlet-class>tv.tipoff.api.servlet.CheckInServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CheckIn</servlet-name>
+		<url-pattern>/checkin</url-pattern>
+	</servlet-mapping>
 	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

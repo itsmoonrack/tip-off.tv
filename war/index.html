@@ -151,16 +151,23 @@
 						colorB=0;
 						colorG=255;
 					}
+					var photo=val.show.photo;
+					if(val.show.photo==""){
+						photo="http://i.imgur.com/xDtLE.png"
+					}
+					
+					var start = (new Date(val.show.start)).toLocaleTimeString()
+					var end = (new Date(val.show.end)).toLocaleTimeString()
 					
 					$('#channel_' + val.channel).append(
 						"<div style=\"width: 15px; position: absolute; margin-left:8px; margin-top:8px; \">" +
 						"<div style=\"background-color: rgb(240,240,240); width: 15px; height: " + ((1 - val.show.affinity)*120) + "px;\"></div>" +
 						"<div style=\"background-color: rgb("+ colorR +","+ colorG +","+ colorB +"); width: 15px; height: " + (val.show.affinity*120) + "px;\"></div>" +
 						"<font size=\"1px\">" + Math.round(val.show.affinity * 100) + "%</font></div>" +
-						"<img class=\"logo_shows\" src=\"" + val.show.photo + "\" />" +
+						"<img class=\"logo_shows\" src=\"" + photo + "\" />" +
 						"<img class=\"logo_channel\" src=\"img/channel/channel_" + val.channel + ".png\" /><br /><br />" +
 						val.show.title + "<br />" +
-						"<font size=\"1px\">" + val.show.start + " - " + val.show.end + "</font>"
+						"<font size=\"1px\">" + start.substring(0, start.length - 3) + " - " + start.substring(0, end.length - 3) + "</font>"
 					);
 					
 					$('#channel_' + val.channel).click(function() {
