@@ -58,7 +58,7 @@
 			<div class="row-fluid">
 				<div class="span3">
 					<div class="well sidebar-nav">
-						<h4 style="color: rgb(153, 153, 153); padding-left: 15px;">Suggestions</h4>
+						<h4 style="color: rgb(153, 153, 153); padding-left: 15px;">Suggestions - A venir</h4>
 						<hr style="margin: 5px;" />
 						<ul class="nav nav-list">
 							<li class="nav-header">Aujourd'hui</li>
@@ -138,16 +138,23 @@
 			$.getJSON('/program/programs', function(data) {
 				var items = [];
 
+				var count = 0;
+				var affinity = [10, 70, 20, 33, 12, 12, 15, 86, 80];
+				
 				$.each(data.diffusion, function(key, val) {
+					
+					var affinity_calc = affinity[count] / 100;
+					console.log(affinity[count] + " - " + affinity_calc);
+					
 					var colorR;
 					var colorB;
 					var colorG;
-					if(val.show.affinity<0.5){
+					if((affinity[count] / 100)<0.5){
 						colorR=255;
-						colorG=Math.round(510*val.show.affinity);
+						colorG=Math.round(510*affinity_calc);
 						colorB=0;
 					}else{
-						colorR=Math.round(255-(val.show.affinity-0.5)*510);
+						colorR=Math.round(255-(affinity_calc-0.5)*510);
 						colorB=0;
 						colorG=255;
 					}
@@ -161,9 +168,9 @@
 					
 					$('#channel_' + channel).append(
 						"<div style=\"width: 15px; position: absolute; margin-left:8px; margin-top:8px; \">" +
-						"<div style=\"background-color: rgb(240,240,240); width: 15px; height: " + ((1 - val.show.affinity)*120) + "px;\"></div>" +
-						"<div style=\"background-color: rgb("+ colorR +","+ colorG +","+ colorB +"); width: 15px; height: " + (val.show.affinity*120) + "px;\"></div>" +
-						"<font size=\"1px\">" + Math.round(val.show.affinity * 100) + "%</font></div>" +
+						"<div style=\"background-color: rgb(240,240,240); width: 15px; height: " + (1 - affinity_calc)*120 + "px;\"></div>" +
+						"<div style=\"background-color: rgb("+ colorR +","+ colorG +","+ colorB +"); width: 15px; height: " + affinity_calc*120 + "px;\"></div>" +
+						"<font size=\"1px\">" + affinity[count] + "%</font></div>" +
 						"<img class=\"logo_shows\" src=\"" + photo + "\" />" +
 						"<img class=\"logo_channel\" src=\"img/channel/channel_" + channel + ".png\" /><br /><br />" +
 						val.show.title + "<br />" +
@@ -173,6 +180,9 @@
 					$('#channel_' + channel).click(function() {
 						window.location = "show.html?id=" + val.id;
 					});
+					
+					if($('#channel_' + channel).length > 0)
+						count++;
 				});
 			});
 		</script>
