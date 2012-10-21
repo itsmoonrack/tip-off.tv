@@ -94,7 +94,7 @@ public class ProgramServlet extends HttpServlet {
 		builder.append("{\"diffusion\":[");
 		for (Broadcast broadcast : broadcasts){
 			Program program = new Program();
-			program.setId(broadcast.getId());
+			program.setId(broadcast.getProgram().getId());
 			program.setTitle(broadcast.getChannel().getName());
 			program.setShowTitle(broadcast.getTitle());
 			program.setImageURL(broadcast.getProgram().getPhoto().get(PHOTO_SIZE));
