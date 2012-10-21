@@ -40,6 +40,7 @@ public class Program implements PersistHooks {
 	
 	public Program(){
 		hasBeenSeenBy = new ArrayList<String>();
+		similarTo = new ArrayList<Tuple<String,Integer>>();
 	}
 	
 	public Program(String id, String title, String imageURL, 

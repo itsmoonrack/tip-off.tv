@@ -34,6 +34,8 @@ public class ProgramServlet extends HttpServlet {
 	public static final String ACTION_ALL = "/all";
 	public static final String ACTION_NOW = "/now";
 	public static final String ACTION_PROGRAM = "/program";
+	public static final String ACTION_PROGRAMS = "/programs";
+	public static final String ACTION_SIMILAR = "/similar";
 	
 
 	private String host;
@@ -66,9 +68,23 @@ public class ProgramServlet extends HttpServlet {
 		case ACTION_PROGRAM:
 			forwardProgram(req,resp);
 			break;
+		case ACTION_SIMILAR:
+			getPrograms(req,resp);
+			break;
+		case ACTION_PROGRAMS:
+			similarProgram(req,resp);
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void getPrograms(HttpServletRequest req, HttpServletResponse resp) {
+		pluzzService;
+	}
+
+	private void similarProgram(HttpServletRequest req, HttpServletResponse resp) {
+		
 	}
 
 	private void forwardProgram(HttpServletRequest req, HttpServletResponse resp) {
