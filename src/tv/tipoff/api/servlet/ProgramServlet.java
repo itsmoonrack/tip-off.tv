@@ -45,17 +45,10 @@ public class ProgramServlet extends HttpServlet {
 	public static final String ACTION_FUTUR = "/futur";
 	
 
-	private String host;
-	private String scheme;
+	private String host = "pgep.francetv.fr";
+	private String scheme = "http";
 	
-	private static RESTService pluzzService ;
-	
-	@Override
-	public void init() throws ServletException {
-		pluzzService = new RESTService();
-		host = "pgep.francetv.fr";
-		scheme = "http";
-	}
+	private static RESTService pluzzService = new RESTService();
 	
 	Gson gson = new Gson();
 
