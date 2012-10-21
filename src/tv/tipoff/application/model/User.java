@@ -104,6 +104,10 @@ public class User implements PersistHooks {
 		return deleted;
 	}
 	
+	public void setHasSeen(Set<String> list) {
+		this.hasSeen = list;
+	}
+	
 	/**
 	 * Ajoute une émission à la liste des "Vues" pour l'utilisateur.
 	 * 
