@@ -1,3 +1,2 @@
 war/WEB-INF/classes/
-war/WEB-INF/appengine-generated/datastore-indexes-auto.xml
 *.DS_Store
