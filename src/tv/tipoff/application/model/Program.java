@@ -25,6 +25,7 @@ public class Program implements PersistHooks {
 	@Persistent private String id;
 	@Persistent private String title;
 	@Persistent private String imageURL;
+	@Persistent private String genre;
 	
 	@Persistent private String showTitle;
 	@Persistent private Date showStart;
@@ -40,6 +41,7 @@ public class Program implements PersistHooks {
 	
 	public Program(){
 		hasBeenSeenBy = new ArrayList<String>();
+		similarTo = new ArrayList<Tuple<String,Integer>>();
 	}
 	
 	public Program(String id, String title, String imageURL, 
@@ -154,6 +156,7 @@ public class Program implements PersistHooks {
 		StringBuffer builder = new StringBuffer();
 		builder.append("{");
 		builder.append("\"channel\": \""+ this.title +"\",");
+		builder.append("\"id\": \""+ this.id +"\",");
 		builder.append("\"photo\": \""+ this.imageURL  +"\"");
 			builder.append(",\"show\": {");
 				builder.append("\"title\": \""+  this.showTitle +"\"");
@@ -168,6 +171,15 @@ public class Program implements PersistHooks {
 		builder.append("}");
 		
 		return builder.toString();
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public String setGenre(String genre) {
+		this.genre = genre;
+		return genre;
 	}
 	
 	
