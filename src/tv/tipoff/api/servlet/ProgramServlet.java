@@ -38,6 +38,7 @@ public class ProgramServlet extends HttpServlet {
 	public static final String ACTION_PROGRAM = "/program";
 	public static final String ACTION_PROGRAMS = "/programs";
 	public static final String ACTION_SIMILAR = "/similar";
+	public static final String ACTION_FUTUR = "/futur";
 	
 
 	private String host;
@@ -76,11 +77,42 @@ public class ProgramServlet extends HttpServlet {
 		case ACTION_PROGRAMS:
 			getPrograms(req,resp);
 			break;
+		case ACTION_FUTUR:
+			getFutur(req,resp);
+			break;
 		default:
 			break;
 		}
 	}
 
+
+	private void getFutur(HttpServletRequest req, HttpServletResponse resp) {
+
+		List<Broadcast> broadcasts = pluzzService.getBroadcasts(new Date());
+
+		StringBuilder builder = new StringBuilder();
+		builder.append("{\"diffusion\":[");
+		for (Broadcast broadcast : broadcasts){
+			Program program = new Program();
+			program.setId(broadcast.getProgram().getId());
+			program.setTitle(broadcast.getChannel().getName());
+			program.setShowTitle(broadcast.getTitle());
+			program.setImageURL(broadcast.getProgram().getPhoto().get(PHOTO_SIZE));
+//			System.out.println("***********************************");
+//			System.out.println(broadcast.getProgram().getGenre());
+//			System.out.println("***********************************");
+			//program.setGenre(broadcast.getProgram().getGenre());
+			try {
+				program.setShowStart(PLUZZ_SERVICE.parse(broadcast.getStartsAt()));
+				program.setShowEnd(PLUZZ_SERVICE.parse(broadcast.getEndsAt()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+
+			daoProgram.createProgram(program);
+		}
+	}
+	
 	private void getPrograms(HttpServletRequest req, HttpServletResponse resp) {
 
 		List<Broadcast> broadcasts = pluzzService.getBroadcasts(new Date());
@@ -108,7 +140,7 @@ public class ProgramServlet extends HttpServlet {
 
 			daoProgram.createProgram(program);
 
-			resp.setCharacterEncoding("utf-8");
+			resp.setCharacterEncoding("UTF-8");
 
 			if (size != i++){
 				builder.append(program.toJSON() +",");

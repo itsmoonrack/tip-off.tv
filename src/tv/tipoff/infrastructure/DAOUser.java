@@ -90,8 +90,12 @@ public class DAOUser {
 	 */
 	public void updateUser(User user) {
 		pm = PMF.getPersistenceManager();
-		pm.makePersistent(user);
-		pm.close();
+		try {
+			pm.makePersistent(user);
+		}
+		finally {
+			pm.close();
+		}
 	}
 
 	/**
